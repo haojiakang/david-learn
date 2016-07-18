@@ -1,0 +1,32 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/rabbit
+        http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+    <!--<import resource="mq-context.xml" />-->
+    <rabbit:connection-factory id="connectionFactory" host="localhost" virtual-host="sample"/>
+    <rabbit:admin connection-factory="connectionFactory"/>
+
+    <rabbit:queue name="testqueue"/>
+
+    <rabbit:direct-exchange name="test exchange">
+        <rabbit:bindings>
+            <rabbit:binding queue="testqueue"></rabbit:binding>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" exchange="testexchange"
+                     queue="testqueue"/>
+
+    <task:scheduler id="myScheduler" pool-size="10" />
+    <task:annotation-driven scheduler="myScheduler" />
+
+    <bean id="producer" class="com.david.rabbitmq.spring.Producer"></bean>
+</beans>
