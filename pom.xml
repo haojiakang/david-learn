@@ -22,6 +22,7 @@
         <module>perf4j-learn</module>
         <module>rabbitmq-learn</module>
         <module>shell-script-learn</module>
+        <module>javaVm-learn</module>
     </modules>
 
 
