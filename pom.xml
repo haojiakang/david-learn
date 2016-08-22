@@ -12,7 +12,6 @@
         <module>aspectj-aop-learn</module>
         <module>cmd-runner</module>
         <module>comet-learn</module>
-        <module>dubbo-learn</module>
         <module>guava-learn</module>
         <module>jedis-learn</module>
         <module>jmeter-learn</module>
