@@ -22,6 +22,7 @@
         <module>rabbitmq-learn</module>
         <module>shell-script-learn</module>
         <module>javaVm-learn</module>
+        <module>protostuff-learn</module>
     </modules>
 
 

@@ -25,7 +25,7 @@
     <rabbit:template id="amqpTemplate" connection-factory="connectionFactory" exchange="testexchange"
                      queue="testqueue"/>
 
-    <task:scheduler id="myScheduler" pool-size="10" />
+    <task:scheduler id="myScheduler" pool-contentSize="10" />
     <task:annotation-driven scheduler="myScheduler" />
 
     <bean id="producer" class="com.david.rabbitmq.spring.Producer"></bean>
