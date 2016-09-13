@@ -23,6 +23,8 @@
         <module>shell-script-learn</module>
         <module>javaVm-learn</module>
         <module>protostuff-learn</module>
+        <module>default-learn</module>
+        <module>practice</module>
     </modules>
 
 
