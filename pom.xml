@@ -25,6 +25,7 @@
         <module>protostuff-learn</module>
         <module>default-learn</module>
         <module>practice</module>
+        <module>design-model</module>
     </modules>
 
 
