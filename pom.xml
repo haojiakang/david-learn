@@ -26,6 +26,7 @@
         <module>default-learn</module>
         <module>practice</module>
         <module>design-model</module>
+        <module>logback-learn</module>
     </modules>
 
 
