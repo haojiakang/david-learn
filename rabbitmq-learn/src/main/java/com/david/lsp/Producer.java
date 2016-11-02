@@ -1,7 +1,7 @@
 package com.david.lsp;
 
+import com.david.util.StringUtils;
 import com.rabbitmq.client.*;
-import com.sun.deploy.util.StringUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
