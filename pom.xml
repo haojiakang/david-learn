@@ -26,7 +26,26 @@
         <module>practice</module>
         <module>design-model</module>
         <module>logback-learn</module>
+        <module>xunfei-learn</module>
     </modules>
+
+    <properties>
+        <slf4j.version>1.7.12</slf4j.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
