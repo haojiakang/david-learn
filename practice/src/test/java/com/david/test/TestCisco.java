@@ -20,8 +20,8 @@ public class TestCisco {
 
     @Test
     public void testCalculateRouter() {
-        int num = 6;
-        String result = RouterUtil.calculateRouter(num);
+        int num = 11;
+        String result = RouterUtil.calculateRouter2(num);
         System.out.println(result);
     }
 }
