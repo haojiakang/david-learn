@@ -33,12 +33,12 @@ public class Traffic {
         this.layer4Port = layer4Port;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Traffic{" +
                 "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", layer4Port=" + layer4Port +
                 '}';
-    }
+    }*/
 }
