@@ -28,6 +28,7 @@
         <module>logback-learn</module>
         <module>xunfei-learn</module>
         <module>design-module-learn</module>
+        <module>rocketmq-learn</module>
     </modules>
 
     <properties>
