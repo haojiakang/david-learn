@@ -27,8 +27,8 @@
         <module>design-model</module>
         <module>logback-learn</module>
         <module>xunfei-learn</module>
-        <module>design-module-learn</module>
         <module>rocketmq-learn</module>
+        <module>powermock-learn</module>
     </modules>
 
     <properties>
@@ -53,7 +53,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.10</version>
         </dependency>
 
     </dependencies>
