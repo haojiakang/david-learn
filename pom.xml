@@ -29,6 +29,9 @@
         <module>xunfei-learn</module>
         <module>rocketmq-learn</module>
         <module>powermock-learn</module>
+        <module>jni-learn</module>
+        <module>opus-jni-learn</module>
+        <module>concurrent-learn</module>
     </modules>
 
     <properties>
