@@ -14,7 +14,7 @@ public class TwinsLock implements Lock {
 
     private static final class Sync extends AbstractQueuedSynchronizer {
 
-        Sync(int count) {
+        public Sync(int count) {
             if (count <= 0) {
                 throw new IllegalArgumentException("count must large than zero.");
             }
