@@ -32,6 +32,7 @@
         <module>jni-learn</module>
         <module>opus-jni-learn</module>
         <module>concurrent-learn</module>
+        <module>spring-source</module>
     </modules>
 
     <properties>
