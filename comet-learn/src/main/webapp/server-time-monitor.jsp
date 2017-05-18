@@ -12,9 +12,9 @@
 <body>
 <div id="monitor-window">服务器现在是：<span id="time"></span></div>
 <form id="a-form" action="${ctx}/ServerTimeMonitor" method="post" target="handleFrame">
-  <input type="submit" name="submit" id="submit" value=" 获取并监控服务器时间 " />
+  <input type="submit" userName="submit" id="submit" value=" 获取并监控服务器时间 " />
 </form>
-<iframe name="handleFrame" id="handleFrame" style="display:none"></iframe>
+<iframe userName="handleFrame" id="handleFrame" style="display:none"></iframe>
 
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script> -->
 <script type="text/javascript" src="jquery-1.12.3.min.js"></script>

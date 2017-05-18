@@ -1,6 +1,6 @@
 #!/bin/bash
 #Program:
-#   Use input dir name, I find the permission of files.
+#   Use input dir userName, I find the permission of files.
 #History
 #   2016/06/16 Jackie First release
 

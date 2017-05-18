@@ -7,9 +7,9 @@
     <rabbit:connection-factory id="connectionFactory" host="localhost" virtual-host="sample"/>
     <rabbit:admin connection-factory="connectionFactory"/>
 
-    <rabbit:queue name="testqueue"/>
+    <rabbit:queue userName="testqueue"/>
 
-    <rabbit:direct-exchange name="test exchange">
+    <rabbit:direct-exchange userName="test exchange">
         <rabbit:bindings>
             <rabbit:binding queue="testqueue"></rabbit:binding>
         </rabbit:bindings>

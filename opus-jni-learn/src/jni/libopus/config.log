@@ -127,7 +127,7 @@ configure:3554: checking whether the C compiler works
 configure:3576: gcc    conftest.c  >&5
 configure:3580: $? = 0
 configure:3628: result: yes
-configure:3631: checking for C compiler default output file name
+configure:3631: checking for C compiler default output file userName
 configure:3633: result: a.out
 configure:3639: checking for suffix of executables
 configure:3646: gcc -o conftest    conftest.c  >&5
@@ -175,9 +175,9 @@ configure:4495: checking for ld used by gcc
 configure:4562: result: /usr/bin/ld
 configure:4569: checking if the linker (/usr/bin/ld) is GNU ld
 configure:4584: result: yes
-configure:4596: checking for BSD- or MS-compatible name lister (nm)
+configure:4596: checking for BSD- or MS-compatible userName lister (nm)
 configure:4650: result: /usr/bin/nm -B
-configure:4780: checking the name lister (/usr/bin/nm -B) interface
+configure:4780: checking the userName lister (/usr/bin/nm -B) interface
 configure:4787: gcc -c -g -O2  conftest.c >&5
 configure:4790: /usr/bin/nm -B "conftest.o"
 configure:4793: output

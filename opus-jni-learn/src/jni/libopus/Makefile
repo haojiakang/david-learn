@@ -692,7 +692,7 @@ am__recheck_rx = ^[ 	]*:recheck:[ 	]*
 am__global_test_result_rx = ^[ 	]*:global-test-result:[ 	]*
 am__copy_in_global_log_rx = ^[ 	]*:copy-in-global-log:[ 	]*
 # A command that, given a newline-separated list of test names on the
-# standard input, print the name of the tests that are to be re-run
+# standard input, print the userName of the tests that are to be re-run
 # upon "make recheck".
 am__list_recheck_tests = $(AWK) '{ \
   recheck = 1; \
@@ -2619,98 +2619,98 @@ recheck: all
 celt/tests/test_unit_types.log: celt/tests/test_unit_types$(EXEEXT)
 	@p='celt/tests/test_unit_types$(EXEEXT)'; \
 	b='celt/tests/test_unit_types'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 celt/tests/test_unit_mathops.log: celt/tests/test_unit_mathops$(EXEEXT)
 	@p='celt/tests/test_unit_mathops$(EXEEXT)'; \
 	b='celt/tests/test_unit_mathops'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 celt/tests/test_unit_entropy.log: celt/tests/test_unit_entropy$(EXEEXT)
 	@p='celt/tests/test_unit_entropy$(EXEEXT)'; \
 	b='celt/tests/test_unit_entropy'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 celt/tests/test_unit_laplace.log: celt/tests/test_unit_laplace$(EXEEXT)
 	@p='celt/tests/test_unit_laplace$(EXEEXT)'; \
 	b='celt/tests/test_unit_laplace'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 celt/tests/test_unit_dft.log: celt/tests/test_unit_dft$(EXEEXT)
 	@p='celt/tests/test_unit_dft$(EXEEXT)'; \
 	b='celt/tests/test_unit_dft'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 celt/tests/test_unit_mdct.log: celt/tests/test_unit_mdct$(EXEEXT)
 	@p='celt/tests/test_unit_mdct$(EXEEXT)'; \
 	b='celt/tests/test_unit_mdct'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 celt/tests/test_unit_rotation.log: celt/tests/test_unit_rotation$(EXEEXT)
 	@p='celt/tests/test_unit_rotation$(EXEEXT)'; \
 	b='celt/tests/test_unit_rotation'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 celt/tests/test_unit_cwrs32.log: celt/tests/test_unit_cwrs32$(EXEEXT)
 	@p='celt/tests/test_unit_cwrs32$(EXEEXT)'; \
 	b='celt/tests/test_unit_cwrs32'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 tests/test_opus_api.log: tests/test_opus_api$(EXEEXT)
 	@p='tests/test_opus_api$(EXEEXT)'; \
 	b='tests/test_opus_api'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 tests/test_opus_decode.log: tests/test_opus_decode$(EXEEXT)
 	@p='tests/test_opus_decode$(EXEEXT)'; \
 	b='tests/test_opus_decode'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 tests/test_opus_encode.log: tests/test_opus_encode$(EXEEXT)
 	@p='tests/test_opus_encode$(EXEEXT)'; \
 	b='tests/test_opus_encode'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 tests/test_opus_padding.log: tests/test_opus_padding$(EXEEXT)
 	@p='tests/test_opus_padding$(EXEEXT)'; \
 	b='tests/test_opus_padding'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 .test.log:
 	@p='$<'; \
 	$(am__set_b); \
-	$(am__check_pre) $(TEST_LOG_DRIVER) --test-name "$$f" \
+	$(am__check_pre) $(TEST_LOG_DRIVER) --test-userName "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_TEST_LOG_DRIVER_FLAGS) $(TEST_LOG_DRIVER_FLAGS) -- $(TEST_LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
 #.test$(EXEEXT).log:
 #	@p='$<'; \
 #	$(am__set_b); \
-#	$(am__check_pre) $(TEST_LOG_DRIVER) --test-name "$$f" \
+#	$(am__check_pre) $(TEST_LOG_DRIVER) --test-userName "$$f" \
 #	--log-file $$b.log --trs-file $$b.trs \
 #	$(am__common_driver_flags) $(AM_TEST_LOG_DRIVER_FLAGS) $(TEST_LOG_DRIVER_FLAGS) -- $(TEST_LOG_COMPILE) \
 #	"$$tst" $(AM_TESTS_FD_REDIRECT)

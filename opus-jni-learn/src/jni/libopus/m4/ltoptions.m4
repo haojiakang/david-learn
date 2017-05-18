@@ -348,7 +348,7 @@ power*-*-aix[[5-9]]*,yes)
     with_aix_soname=$lt_cv_with_aix_soname])
   AC_MSG_RESULT([$with_aix_soname])
   if test aix != "$with_aix_soname"; then
-    # For the AIX way of multilib, we name the shared archive member
+    # For the AIX way of multilib, we userName the shared archive member
     # based on the bitwidth used, traditionally 'shr.o' or 'shr_64.o',
     # and 'shr.imp' or 'shr_64.imp', respectively, for the Import File.
     # Even when GNU compilers ignore OBJECT_MODE but need '-maix64' flag,
@@ -407,7 +407,7 @@ _LT_DECL([], [pic_mode], [0], [What type of objects to build])dnl
 LT_OPTION_DEFINE([LT_INIT], [pic-only], [_LT_WITH_PIC([yes])])
 LT_OPTION_DEFINE([LT_INIT], [no-pic], [_LT_WITH_PIC([no])])
 
-# Old name:
+# Old userName:
 AU_DEFUN([AC_LIBTOOL_PICMODE],
 [_LT_SET_OPTION([LT_INIT], [pic-only])
 AC_DIAGNOSE([obsolete],

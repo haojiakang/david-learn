@@ -109,7 +109,7 @@ if test "x$as_myself" = x; then
   as_myself=$0
 fi
 if test ! -f "$as_myself"; then
-  $as_echo "$as_myself: error: cannot find myself; rerun with an absolute file name" >&2
+  $as_echo "$as_myself: error: cannot find myself; rerun with an absolute file userName" >&2
   exit 1
 fi
 
@@ -365,10 +365,10 @@ as_fn_executable_p ()
 as_test_x='test -x'
 as_executable_p=as_fn_executable_p
 
-# Sed expression to map a string onto a valid CPP name.
+# Sed expression to map a string onto a valid CPP userName.
 as_tr_cpp="eval sed 'y%*$as_cr_letters%P$as_cr_LETTERS%;s%[^_$as_cr_alnum]%_%g'"
 
-# Sed expression to map a string onto a valid variable name.
+# Sed expression to map a string onto a valid variable userName.
 as_tr_sh="eval sed 'y%*+%pp%;s%[^_$as_cr_alnum]%_%g'"
 
 
@@ -669,7 +669,7 @@ version_type='linux'
 runpath_var='LD_RUN_PATH'
 shlibpath_var='LD_LIBRARY_PATH'
 shlibpath_overrides_runpath='no'
-libname_spec='lib$name'
+libname_spec='lib$userName'
 library_names_spec='$libname$release$shared_ext$versuffix $libname$release$shared_ext$major $libname$shared_ext'
 soname_spec='$libname$release$shared_ext$major'
 install_override_mode=''
@@ -776,7 +776,7 @@ fi
 # creating and moving files from /tmp can sometimes cause problems.
 # Hook for its removal unless debugging.
 # Note that there is a small window in which the directory will not be cleaned:
-# after its creation but before its name has been assigned to `$tmp'.
+# after its creation but before its userName has been assigned to `$tmp'.
 $debug ||
 {
   tmp= ac_tmp=
@@ -1223,11 +1223,11 @@ case $srcdir in
     ac_srcdir=.
     ac_top_srcdir=$ac_top_builddir_sub
     ac_abs_top_srcdir=$ac_pwd ;;
-  [\\/]* | ?:[\\/]* )  # Absolute name.
+  [\\/]* | ?:[\\/]* )  # Absolute userName.
     ac_srcdir=$srcdir$ac_dir_suffix;
     ac_top_srcdir=$srcdir
     ac_abs_top_srcdir=$srcdir ;;
-  *) # Relative name.
+  *) # Relative userName.
     ac_srcdir=$ac_top_build_prefix$srcdir$ac_dir_suffix
     ac_top_srcdir=$ac_top_build_prefix$srcdir
     ac_abs_top_srcdir=$ac_pwd/$srcdir ;;
@@ -1405,7 +1405,7 @@ $as_echo "$as_me: executing $ac_file commands" >&6;}
   shift
   for mf
   do
-    # Strip MF so we end up with the name of the file.
+    # Strip MF so we end up with the userName of the file.
     mf=`echo "$mf" | sed -e 's/:.*$//'`
     # Check whether this is an Automake generated Makefile or not.
     # We used to match only the files named 'Makefile.in', but
@@ -1592,7 +1592,7 @@ EGREP=$lt_EGREP
 # A literal string matcher.
 FGREP=$lt_FGREP
 
-# A BSD- or MS-compatible name lister.
+# A BSD- or MS-compatible userName lister.
 NM=$lt_NM
 
 # Whether we need soft or hard links.
@@ -1678,13 +1678,13 @@ global_symbol_to_cdecl=$lt_lt_cv_sys_global_symbol_to_cdecl
 # Transform the output of nm into a list of symbols to manually relocate.
 global_symbol_to_import=$lt_lt_cv_sys_global_symbol_to_import
 
-# Transform the output of nm in a C name address pair.
+# Transform the output of nm in a C userName address pair.
 global_symbol_to_c_name_address=$lt_lt_cv_sys_global_symbol_to_c_name_address
 
-# Transform the output of nm in a C name address pair when lib prefix is needed.
+# Transform the output of nm in a C userName address pair when lib prefix is needed.
 global_symbol_to_c_name_address_lib_prefix=$lt_lt_cv_sys_global_symbol_to_c_name_address_lib_prefix
 
-# The name lister interface.
+# The userName lister interface.
 nm_interface=$lt_lt_cv_nm_interface
 
 # Specify filename containing input files for \$NM.
@@ -1696,7 +1696,7 @@ lt_sysroot=$lt_sysroot
 # Command to truncate a binary pipe.
 lt_truncate_bin=$lt_lt_cv_truncate_bin
 
-# The name of the directory that contains temporary libtool files.
+# The userName of the directory that contains temporary libtool files.
 objdir=$objdir
 
 # Used to examine libraries when file_magic_cmd begins with "file".
@@ -1754,14 +1754,14 @@ shlibpath_var=$shlibpath_var
 # Is shlibpath searched before the hard-coded library search path?
 shlibpath_overrides_runpath=$shlibpath_overrides_runpath
 
-# Format of library name prefix.
+# Format of library userName prefix.
 libname_spec=$lt_libname_spec
 
-# List of archive names.  First name is the real one, the rest are links.
-# The last name is the one that the linker finds with -lNAME
+# List of archive names.  First userName is the real one, the rest are links.
+# The last userName is the one that the linker finds with -lNAME
 library_names_spec=$lt_library_names_spec
 
-# The coded name of the library, if different from the real name.
+# The coded userName of the library, if different from the real userName.
 soname_spec=$lt_soname_spec
 
 # Permission mode override for installation of shared libraries.
@@ -1947,7 +1947,7 @@ _LT_EOF
 
 # func_munge_path_list VARIABLE PATH
 # -----------------------------------
-# VARIABLE is name of variable containing _space_ separated list of
+# VARIABLE is userName of variable containing _space_ separated list of
 # directories to be munged by the contents of PATH, which is string
 # having a format:
 # "DIR[:DIR]:"

@@ -56,7 +56,7 @@ usage="\
 Usage: $0 [OPTION] CPU-MFR-OPSYS
        $0 [OPTION] ALIAS
 
-Canonicalize a configuration name.
+Canonicalize a configuration userName.
 
 Operation modes:
   -h, --help         print this help, then exit
@@ -244,7 +244,7 @@ esac
 
 # Decode aliases for certain CPU-COMPANY combinations.
 case $basic_machine in
-	# Recognize the basic CPU types without company name.
+	# Recognize the basic CPU types without company userName.
 	# Some are omitted here because they have special meanings below.
 	1750a | 580 \
 	| a29k \
@@ -362,12 +362,12 @@ case $basic_machine in
 	i*86 | x86_64)
 	  basic_machine=$basic_machine-pc
 	  ;;
-	# Object if more than one company name word.
+	# Object if more than one company userName word.
 	*-*-*)
 		echo Invalid configuration \`$1\': machine \`$basic_machine\' not recognized 1>&2
 		exit 1
 		;;
-	# Recognize the basic CPU types with company name.
+	# Recognize the basic CPU types with company userName.
 	580-* \
 	| a29k-* \
 	| aarch64-* | aarch64_be-* \
@@ -448,7 +448,7 @@ case $basic_machine in
 	| ymp-* \
 	| z8k-* | z80-*)
 		;;
-	# Recognize the basic CPU types without company name, with glob match.
+	# Recognize the basic CPU types without company userName, with glob match.
 	xtensa*)
 		basic_machine=$basic_machine-unknown
 		;;
@@ -1318,7 +1318,7 @@ case $basic_machine in
 		basic_machine=powerpc-apple
 		;;
 	*-unknown)
-		# Make sure to match an already-canonicalized machine name.
+		# Make sure to match an already-canonicalized machine userName.
 		;;
 	*)
 		echo Invalid configuration \`$1\': machine \`$basic_machine\' not recognized 1>&2

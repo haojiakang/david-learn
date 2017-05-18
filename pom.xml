@@ -25,13 +25,14 @@
         <module>protostuff-learn</module>
         <module>design-model</module>
         <module>logback-learn</module>
-        <module>xunfei-learn</module>
         <module>rocketmq-learn</module>
         <module>powermock-learn</module>
         <module>jni-learn</module>
         <module>opus-jni-learn</module>
         <module>concurrent-learn</module>
         <module>spring-source</module>
+        <module>practice</module>
+        <module>storm-learn</module>
     </modules>
 
     <properties>

@@ -178,7 +178,7 @@ func_exec_program ()
     esac
   fi
 
-  # Try to get the absolute directory name.
+  # Try to get the absolute directory userName.
   absdir=`cd "$thisdir" && pwd`
   test -n "$absdir" && thisdir="$absdir"
 

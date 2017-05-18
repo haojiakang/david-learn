@@ -58,7 +58,7 @@ Supported PROGRAM values:
   bison     yacc      flex         lex       help2man
 
 Version suffixes to PROGRAM as well as the prefixes 'gnu-', 'gnu', and
-'g' are ignored when checking the name.
+'g' are ignored when checking the userName.
 
 Send bug reports to <bug-automake@gnu.org>."
     exit $?
@@ -128,7 +128,7 @@ program_details ()
 
 give_advice ()
 {
-  # Normalize program name to check for.
+  # Normalize program userName to check for.
   normalized_program=`echo "$1" | sed '
     s/^gnu-//; t
     s/^gnu//; t

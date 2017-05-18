@@ -310,9 +310,9 @@ fi
 cofile=`echo "$cfile" | sed 's|^.*[\\/]||; s|^[a-zA-Z]:||; s/\.c$/.o/'`
 
 # Create the lock directory.
-# Note: use '[/\\:.-]' here to ensure that we don't use the same name
-# that we are using for the .o file.  Also, base the name on the expected
-# object file name, since that is what matters with a parallel build.
+# Note: use '[/\\:.-]' here to ensure that we don't use the same userName
+# that we are using for the .o file.  Also, base the userName on the expected
+# object file userName, since that is what matters with a parallel build.
 lockdir=`echo "$cofile" | sed -e 's|[/\\:.-]|_|g'`.d
 while true; do
   if mkdir "$lockdir" >/dev/null 2>&1; then

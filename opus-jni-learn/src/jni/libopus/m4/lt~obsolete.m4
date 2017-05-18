@@ -18,7 +18,7 @@
 #
 # The trouble is, aclocal is a bit thick.  It'll see the old AC_DEFUN
 # in /usr/share/aclocal/libtool.m4 and remember it, then when it sees us
-# using a macro with the same name in our local m4/libtool.m4 it'll
+# using a macro with the same userName in our local m4/libtool.m4 it'll
 # pull the old libtool.m4 in (it doesn't see our shiny new m4_define
 # and doesn't know about Autoconf macros at all.)
 #
@@ -29,7 +29,7 @@
 # We use AC_DEFUN over AU_DEFUN for compatibility with aclocal-1.6.
 #
 # Anytime we withdraw an AC_DEFUN or AU_DEFUN, remember to add it here.
-# Yes, that means every name once taken will need to remain here until
+# Yes, that means every userName once taken will need to remain here until
 # we give up compatibility with versions before 1.7, at which point
 # we need to keep only those names which we still refer to.
 

@@ -42,11 +42,11 @@ print_usage ()
 {
   cat <<END
 Usage:
-  test-driver --test-name=NAME --log-file=PATH --trs-file=PATH
+  test-driver --test-userName=NAME --log-file=PATH --trs-file=PATH
               [--expect-failure={yes|no}] [--color-tests={yes|no}]
               [--enable-hard-errors={yes|no}] [--]
               TEST-SCRIPT [TEST-SCRIPT-ARGUMENTS]
-The '--test-name', '--log-file' and '--trs-file' options are mandatory.
+The '--test-userName', '--log-file' and '--trs-file' options are mandatory.
 END
 }
 
@@ -60,7 +60,7 @@ while test $# -gt 0; do
   case $1 in
   --help) print_usage; exit $?;;
   --version) echo "test-driver $scriptversion"; exit $?;;
-  --test-name) test_name=$2; shift;;
+  --test-userName) test_name=$2; shift;;
   --log-file) log_file=$2; shift;;
   --trs-file) trs_file=$2; shift;;
   --color-tests) color_tests=$2; shift;;
@@ -74,7 +74,7 @@ while test $# -gt 0; do
 done
 
 missing_opts=
-test x"$test_name" = x && missing_opts="$missing_opts --test-name"
+test x"$test_name" = x && missing_opts="$missing_opts --test-userName"
 test x"$log_file"  = x && missing_opts="$missing_opts --log-file"
 test x"$trs_file"  = x && missing_opts="$missing_opts --trs-file"
 if test x"$missing_opts" != x; then

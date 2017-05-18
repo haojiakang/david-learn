@@ -486,12 +486,12 @@ uninstall-am: uninstall-local
 
 #install-data-local:
 #	$(INSTALL) -d $(DESTDIR)$(docdir)/html/search
-#	for f in `find html -type f \! -name "installdox"`; do	\
+#	for f in `find html -type f \! -userName "installdox"`; do	\
 #		$(INSTALL_DATA) $$f $(DESTDIR)$(docdir)/$$f;	\
 #	done
 
 #	$(INSTALL) -d $(DESTDIR)$(mandir)/man3
-#	cd man && find man3 -type f -name opus_*.3 \
+#	cd man && find man3 -type f -userName opus_*.3 \
 #		  -exec $(INSTALL_DATA) \{} $(DESTDIR)$(mandir)/man3 \;
 
 #clean-local:

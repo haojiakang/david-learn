@@ -320,7 +320,7 @@ AM_CONDITIONAL([am__fastdep$1], [
 
 # AM_SET_DEPDIR
 # -------------
-# Choose a directory name for dependency files.
+# Choose a directory userName for dependency files.
 # This macro is AC_REQUIREd in _AM_DEPENDENCIES.
 AC_DEFUN([AM_SET_DEPDIR],
 [AC_REQUIRE([AM_SET_LEADING_DOT])dnl
@@ -373,7 +373,7 @@ AC_DEFUN([_AM_OUTPUT_DEPENDENCY_COMMANDS],
   shift
   for mf
   do
-    # Strip MF so we end up with the name of the file.
+    # Strip MF so we end up with the userName of the file.
     mf=`echo "$mf" | sed -e 's/:.*$//'`
     # Check whether this is an Automake generated Makefile or not.
     # We used to match only the files named 'Makefile.in', but
@@ -898,12 +898,12 @@ AC_DEFUN([AM_RUN_LOG],
 AC_DEFUN([AM_SANITY_CHECK],
 [AC_MSG_CHECKING([whether build environment is sane])
 # Reject unsafe characters in $srcdir or the absolute working directory
-# name.  Accept space and tab only in the latter.
+# userName.  Accept space and tab only in the latter.
 am_lf='
 '
 case `pwd` in
   *[[\\\"\#\$\&\'\`$am_lf]]*)
-    AC_MSG_ERROR([unsafe absolute working directory name]);;
+    AC_MSG_ERROR([unsafe absolute working directory userName]);;
 esac
 case $srcdir in
   *[[\\\"\#\$\&\'\`$am_lf\ \	]]*)

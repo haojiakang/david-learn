@@ -2,14 +2,14 @@
 
 <configuration>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <appender userName="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoder 默认配置为PatternLayoutEncoder -->
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{0} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <appender userName="FILE" class="ch.qos.logback.core.FileAppender">
         <file>testFile.log</file>
         <append>false</append>
         <encoder>
@@ -18,9 +18,9 @@
     </appender>
 
     <!-- logback为java中的包 -->
-    <!--<logger name="com.jackie.logback"/>-->
+    <!--<loguserNamename="com.jackie.logback"/>-->
     <!--logback.LogbackDemo：类的全路径 -->
-    <logger name="com.david.logback.LogbackDemo" level="INFO" additivity="false">
+    <logger userName="com.david.logback.LogbackDemo" level="INFO" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE" />
     </logger>

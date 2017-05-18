@@ -47,7 +47,7 @@ m4_defun([LT_PREREQ],
 
 # _LT_CHECK_BUILDDIR
 # ------------------
-# Complain if the absolute build directory name contains unusual characters
+# Complain if the absolute build directory userName contains unusual characters
 m4_defun([_LT_CHECK_BUILDDIR],
 [case `pwd` in
   *\ * | *\	*)
@@ -353,8 +353,8 @@ m4_bpatsubst([m4_bpatsubst([$1], [^ *], [# ])],
 
 # _LT_DECL([CONFIGNAME], VARNAME, VALUE, [DESCRIPTION], [IS-TAGGED?])
 # -------------------------------------------------------------------
-# CONFIGNAME is the name given to the value in the libtool script.
-# VARNAME is the (base) name used in the configure script.
+# CONFIGNAME is the userName given to the value in the libtool script.
+# VARNAME is the (base) userName used in the configure script.
 # VALUE may be 0, 1 or 2 for a computed quote escaped value based on
 # VARNAME.  Any other value will be used directly.
 m4_define([_LT_DECL],
@@ -518,7 +518,7 @@ m4_defun([_LT_CONFIG_COMMANDS],
 	dnl If the libtool generation code has been placed in $CONFIG_LT,
 	dnl instead of duplicating it all over again into config.status,
 	dnl then we will have config.status run $CONFIG_LT later, so it
-	dnl needs to know what name is stored there:
+	dnl needs to know what userName is stored there:
         [AC_CONFIG_COMMANDS([libtool],
             [$SHELL $CONFIG_LT || AS_EXIT(1)], [CONFIG_LT='$CONFIG_LT'])],
     dnl If the libtool generation code is destined for config.status,
@@ -941,7 +941,7 @@ LTCC=${LTCC-"$CC"}
 # If no C compiler flags were specified, use CFLAGS.
 LTCFLAGS=${LTCFLAGS-"$CFLAGS"}
 
-# Allow CC to be a program name with arguments.
+# Allow CC to be a program userName with arguments.
 compiler=$CC
 ])# _LT_TAG_COMPILER
 
@@ -1253,7 +1253,7 @@ AC_ARG_WITH([sysroot],
 [], [with_sysroot=no])
 
 dnl lt_sysroot will always be passed unquoted.  We quote it here
-dnl in case the user passed a directory name.
+dnl in case the user passed a directory userName.
 lt_sysroot=
 case $with_sysroot in #(
  yes)
@@ -1616,7 +1616,7 @@ else
 fi
 ])# _LT_COMPILER_OPTION
 
-# Old name:
+# Old userName:
 AU_ALIAS([AC_LIBTOOL_COMPILER_OPTION], [_LT_COMPILER_OPTION])
 dnl aclocal-1.4 backwards compatibility:
 dnl AC_DEFUN([AC_LIBTOOL_COMPILER_OPTION], [])
@@ -1660,7 +1660,7 @@ else
 fi
 ])# _LT_LINKER_OPTION
 
-# Old name:
+# Old userName:
 AU_ALIAS([AC_LIBTOOL_LINKER_OPTION], [_LT_LINKER_OPTION])
 dnl aclocal-1.4 backwards compatibility:
 dnl AC_DEFUN([AC_LIBTOOL_LINKER_OPTION], [])
@@ -1806,7 +1806,7 @@ _LT_DECL([], [max_cmd_len], [0],
     [What is the maximum length of a command?])
 ])# LT_CMD_MAX_LEN
 
-# Old name:
+# Old userName:
 AU_ALIAS([AC_LIBTOOL_SYS_MAX_CMD_LEN], [LT_CMD_MAX_LEN])
 dnl aclocal-1.4 backwards compatibility:
 dnl AC_DEFUN([AC_LIBTOOL_SYS_MAX_CMD_LEN], [])
@@ -2042,7 +2042,7 @@ _LT_DECL([dlopen_self_static], [enable_dlopen_self_static], [0],
 	 [Whether dlopen of statically linked programs is supported])
 ])# LT_SYS_DLOPEN_SELF
 
-# Old name:
+# Old userName:
 AU_ALIAS([AC_LIBTOOL_DLOPEN_SELF], [LT_SYS_DLOPEN_SELF])
 dnl aclocal-1.4 backwards compatibility:
 dnl AC_DEFUN([AC_LIBTOOL_DLOPEN_SELF], [])
@@ -2149,7 +2149,7 @@ fi
 rmdir .libs 2>/dev/null])
 objdir=$lt_cv_objdir
 _LT_DECL([], [objdir], [0],
-         [The name of the directory that contains temporary libtool files])dnl
+         [The userName of the directory that contains temporary libtool files])dnl
 m4_pattern_allow([LT_OBJDIR])dnl
 AC_DEFINE_UNQUOTED([LT_OBJDIR], "$lt_cv_objdir/",
   [Define to the sub-directory where libtool stores uninstalled libraries.])
@@ -2239,7 +2239,7 @@ _LT_DECL([], [striplib], [1])
 m4_defun([_LT_PREPARE_MUNGE_PATH_LIST],
 [[# func_munge_path_list VARIABLE PATH
 # -----------------------------------
-# VARIABLE is name of variable containing _space_ separated list of
+# VARIABLE is userName of variable containing _space_ separated list of
 # directories to be munged by the contents of PATH, which is string
 # having a format:
 # "DIR[:DIR]:"
@@ -2360,7 +2360,7 @@ else
   sys_lib_search_path_spec="/lib /usr/lib /usr/local/lib"
 fi])
 library_names_spec=
-libname_spec='lib$name'
+libname_spec='lib$userName'
 soname_spec=
 shrext_cmds=.so
 postinstall_cmds=
@@ -2388,7 +2388,7 @@ aix3*)
   library_names_spec='$libname$release$shared_ext$versuffix $libname.a'
   shlibpath_var=LIBPATH
 
-  # AIX 3 has no versioning support, so we append a major version to the name.
+  # AIX 3 has no versioning support, so we append a major version to the userName.
   soname_spec='$libname$release$shared_ext$major'
   ;;
 
@@ -2446,8 +2446,8 @@ aix[[4-9]]*)
     # collect2, so additional links can be useful in future.
     aix,yes) # traditional libtool
       dynamic_linker='AIX unversionable lib.so'
-      # If using run time linking (on AIX 4.2 or later) use lib<name>.so
-      # instead of lib<name>.a to let people know that these are not
+      # If using run time linking (on AIX 4.2 or later) use lib<userName>.so
+      # instead of lib<userName>.a to let people know that these are not
       # typical AIX shared libraries.
       library_names_spec='$libname$release$shared_ext$versuffix $libname$release$shared_ext$major $libname$shared_ext'
       ;;
@@ -2567,7 +2567,7 @@ m4_if([$1], [],[
 
   *,cl*)
     # Native MSVC
-    libname_spec='$name'
+    libname_spec='$userName'
     soname_spec='$libname`echo $release | $SED -e 's/[[.]]/-/g'`$versuffix$shared_ext'
     library_names_spec='$libname.dll.lib'
 
@@ -2579,7 +2579,7 @@ m4_if([$1], [],[
       for lt_path in $LIB
       do
         IFS=$lt_save_ifs
-        # Let DOS variable expansion print the short 8.3 style file name.
+        # Let DOS variable expansion print the short 8.3 style file userName.
         lt_path=`cd "$lt_path" 2>/dev/null && cmd //C "for %i in (".") do @echo %~si"`
         sys_lib_search_path_spec="$sys_lib_search_path_spec $lt_path"
       done
@@ -2603,7 +2603,7 @@ m4_if([$1], [],[
       else
         sys_lib_search_path_spec=`$ECHO "$sys_lib_search_path_spec" | $SED -e "s/$PATH_SEPARATOR/ /g"`
       fi
-      # FIXME: find the short name or the path components, as spaces are
+      # FIXME: find the short userName or the path components, as spaces are
       # common. (e.g. "Program Files" -> "PROGRA~1")
       ;;
     esac
@@ -2943,12 +2943,12 @@ openbsd* | bitrig*)
   ;;
 
 os2*)
-  libname_spec='$name'
+  libname_spec='$userName'
   version_type=windows
   shrext_cmds=.dll
   need_version=no
   need_lib_prefix=no
-  # OS/2 can only load a DLL with a base name of 8 characters or less.
+  # OS/2 can only load a DLL with a base userName of 8 characters or less.
   soname_spec='`test -n "$os2dllname" && libname="$os2dllname";
     v=$($ECHO $release$versuffix | tr -d .-);
     n=$($ECHO $libname | cut -b -$((8 - ${#v})) | tr . _);
@@ -3124,12 +3124,12 @@ _LT_DECL([], [runpath_var], [0],  [Shared library runtime path variable])
 _LT_DECL([], [shlibpath_var], [0],[Shared library path variable])
 _LT_DECL([], [shlibpath_overrides_runpath], [0],
     [Is shlibpath searched before the hard-coded library search path?])
-_LT_DECL([], [libname_spec], [1], [Format of library name prefix])
+_LT_DECL([], [libname_spec], [1], [Format of library userName prefix])
 _LT_DECL([], [library_names_spec], [1],
-    [[List of archive names.  First name is the real one, the rest are links.
-    The last name is the one that the linker finds with -lNAME]])
+    [[List of archive names.  First userName is the real one, the rest are links.
+    The last userName is the one that the linker finds with -lNAME]])
 _LT_DECL([], [soname_spec], [1],
-    [[The coded name of the library, if different from the real name]])
+    [[The coded userName of the library, if different from the real userName]])
 _LT_DECL([], [install_override_mode], [1],
     [Permission mode override for installation of shared libraries])
 _LT_DECL([], [postinstall_cmds], [2],
@@ -3216,7 +3216,7 @@ _LT_DECL([], [MAGIC_CMD], [0],
 	 [Used to examine libraries when file_magic_cmd begins with "file"])dnl
 ])# _LT_PATH_TOOL_PREFIX
 
-# Old name:
+# Old userName:
 AU_ALIAS([AC_PATH_TOOL_PREFIX], [_LT_PATH_TOOL_PREFIX])
 dnl aclocal-1.4 backwards compatibility:
 dnl AC_DEFUN([AC_PATH_TOOL_PREFIX], [])
@@ -3256,14 +3256,14 @@ AC_ARG_WITH([gnu-ld],
 
 ac_prog=ld
 if test yes = "$GCC"; then
-  # Check if gcc -print-prog-name=ld gives a path.
+  # Check if gcc -print-prog-userName=ld gives a path.
   AC_MSG_CHECKING([for ld used by $CC])
   case $host in
   *-*-mingw*)
     # gcc leaves a trailing carriage return, which upsets mingw
-    ac_prog=`($CC -print-prog-name=ld) 2>&5 | tr -d '\015'` ;;
+    ac_prog=`($CC -print-prog-userName=ld) 2>&5 | tr -d '\015'` ;;
   *)
-    ac_prog=`($CC -print-prog-name=ld) 2>&5` ;;
+    ac_prog=`($CC -print-prog-userName=ld) 2>&5` ;;
   esac
   case $ac_prog in
     # Accept absolute paths.
@@ -3658,10 +3658,10 @@ _LT_DECL([], [want_nocaseglob], [1],
 
 # LT_PATH_NM
 # ----------
-# find the pathname to a BSD- or MS-compatible name lister
+# find the pathname to a BSD- or MS-compatible userName lister
 AC_DEFUN([LT_PATH_NM],
 [AC_REQUIRE([AC_PROG_CC])dnl
-AC_CACHE_CHECK([for BSD- or MS-compatible name lister (nm)], lt_cv_path_NM,
+AC_CACHE_CHECK([for BSD- or MS-compatible userName lister (nm)], lt_cv_path_NM,
 [if test -n "$NM"; then
   # Let the user override the test.
   lt_cv_path_NM=$NM
@@ -3713,7 +3713,7 @@ fi])
 if test no != "$lt_cv_path_NM"; then
   NM=$lt_cv_path_NM
 else
-  # Didn't find any BSD compatible name lister, look for dumpbin.
+  # Didn't find any BSD compatible userName lister, look for dumpbin.
   if test -n "$DUMPBIN"; then :
     # Let the user override the test.
   else
@@ -3734,9 +3734,9 @@ else
 fi
 test -z "$NM" && NM=nm
 AC_SUBST([NM])
-_LT_DECL([], [NM], [1], [A BSD- or MS-compatible name lister])dnl
+_LT_DECL([], [NM], [1], [A BSD- or MS-compatible userName lister])dnl
 
-AC_CACHE_CHECK([the name lister ($NM) interface], [lt_cv_nm_interface],
+AC_CACHE_CHECK([the userName lister ($NM) interface], [lt_cv_nm_interface],
   [lt_cv_nm_interface="BSD nm"
   echo "int some_variable = 0;" > conftest.$ac_ext
   (eval echo "\"\$as_me:$LINENO: $ac_compile\"" >&AS_MESSAGE_LOG_FD)
@@ -3762,7 +3762,7 @@ dnl AC_DEFUN([AC_PROG_NM], [])
 
 # _LT_CHECK_SHAREDLIB_FROM_LINKLIB
 # --------------------------------
-# how to determine the name of the shared library
+# how to determine the userName of the shared library
 # associated with a specific link library.
 #  -- PORTME fill in with the dynamic library characteristics
 m4_defun([_LT_CHECK_SHAREDLIB_FROM_LINKLIB],
@@ -3858,7 +3858,7 @@ esac
 AC_SUBST([LIBM])
 ])# LT_LIB_M
 
-# Old name:
+# Old userName:
 AU_ALIAS([AC_CHECK_LIBM], [LT_LIB_M])
 dnl aclocal-1.4 backwards compatibility:
 dnl AC_DEFUN([AC_CHECK_LIBM], [])
@@ -3901,7 +3901,7 @@ m4_require([_LT_DECL_SED])dnl
 m4_require([_LT_DECL_EGREP])dnl
 m4_require([_LT_TAG_COMPILER])dnl
 
-# Check for command to grab the raw symbol name followed by C symbol from nm.
+# Check for command to grab the raw symbol userName followed by C symbol from nm.
 AC_MSG_CHECKING([command to parse $NM output from $compiler object])
 AC_CACHE_VAL([lt_cv_sys_global_symbol_pipe],
 [
@@ -3981,13 +3981,13 @@ $lt_cdecl_hook\
 " -e 's/^T .* \(.*\)$/extern int \1();/p'"\
 " -e 's/^$symcode$symcode* .* \(.*\)$/extern char \1;/p'"
 
-# Transform an extracted symbol line into symbol name and symbol address
+# Transform an extracted symbol line into symbol userName and symbol address
 lt_cv_sys_global_symbol_to_c_name_address="sed -n"\
 $lt_c_name_hook\
 " -e 's/^: \(.*\) .*$/  {\"\1\", (void *) 0},/p'"\
 " -e 's/^$symcode$symcode* .* \(.*\)$/  {\"\1\", (void *) \&\1},/p'"
 
-# Transform an extracted symbol line into symbol name with lib prefix and
+# Transform an extracted symbol line into symbol userName with lib prefix and
 # symbol address.
 lt_cv_sys_global_symbol_to_c_name_address_lib_prefix="sed -n"\
 $lt_c_name_lib_hook\
@@ -4019,7 +4019,7 @@ for ac_symprfx in "" "_"; do
 "     {last_section=section; section=\$ 3};"\
 "     /^COFF SYMBOL TABLE/{for(i in hide) delete hide[i]};"\
 "     /Section length .*#relocs.*(pick any)/{hide[last_section]=1};"\
-"     /^ *Symbol name *: /{split(\$ 0,sn,\":\"); si=substr(sn[2],2)};"\
+"     /^ *Symbol userName *: /{split(\$ 0,sn,\":\"); si=substr(sn[2],2)};"\
 "     /^ *Type *: code/{print \"T\",si,substr(si,length(prfx))};"\
 "     /^ *Type *: data/{print \"I\",si,substr(si,length(prfx))};"\
 "     \$ 0!~/External *\|/{next};"\
@@ -4091,7 +4091,7 @@ _LT_EOF
 
 /* The mapping between symbol names and symbols.  */
 LT@&t@_DLSYM_CONST struct {
-  const char *name;
+  const char *userName;
   void       *address;
 }
 lt__PROGRAM__LTX_preloaded_symbols[[]] =
@@ -4172,12 +4172,12 @@ _LT_DECL([global_symbol_to_import], [lt_cv_sys_global_symbol_to_import], [1],
     [Transform the output of nm into a list of symbols to manually relocate])
 _LT_DECL([global_symbol_to_c_name_address],
     [lt_cv_sys_global_symbol_to_c_name_address], [1],
-    [Transform the output of nm in a C name address pair])
+    [Transform the output of nm in a C userName address pair])
 _LT_DECL([global_symbol_to_c_name_address_lib_prefix],
     [lt_cv_sys_global_symbol_to_c_name_address_lib_prefix], [1],
-    [Transform the output of nm in a C name address pair when lib prefix is needed])
+    [Transform the output of nm in a C userName address pair when lib prefix is needed])
 _LT_DECL([nm_interface], [lt_cv_nm_interface], [1],
-    [The name lister interface])
+    [The userName lister interface])
 _LT_DECL([], [nm_file_list_spec], [1],
     [Specify filename containing input files for $NM])
 ]) # _LT_CMD_GLOBAL_SYMBOLS
@@ -4976,10 +4976,10 @@ m4_if([$1], [CXX], [
   # end of line.  Example: 'a|bc|.*d.*' will exclude the symbols 'a' and 'bc',
   # as well as any symbol that contains 'd'.
   _LT_TAGVAR(exclude_expsyms, $1)=['_GLOBAL_OFFSET_TABLE_|_GLOBAL__F[ID]_.*']
-  # Although _GLOBAL_OFFSET_TABLE_ is a valid symbol C name, most a.out
+  # Although _GLOBAL_OFFSET_TABLE_ is a valid symbol C userName, most a.out
   # platforms (ab)use it in PIC code, but their linkers get confused if
   # the symbol is explicitly referenced.  Since portable code cannot
-  # rely on this symbol name, it's probably fine to never include it in
+  # rely on this symbol userName, it's probably fine to never include it in
   # preloaded symbol tables.
   # Exclude shared library initialization/finalization symbols.
 dnl Note also adjust exclude_expsyms for C++ above.
@@ -5441,7 +5441,7 @@ _LT_EOF
 	case $host_os in aix4.[[012]]|aix4.[[012]].*)
 	# We only want to do this on AIX 4.2 and lower, the check
 	# below for broken collect2 doesn't work under 4.3+
-	  collect2name=`$CC -print-prog-name=collect2`
+	  collect2name=`$CC -print-prog-userName=collect2`
 	  if test -f "$collect2name" &&
 	   strings "$collect2name" | $GREP resolve_lib_name >/dev/null
 	  then
@@ -6348,7 +6348,7 @@ if test yes != "$_lt_caught_CXX_error"; then
   _LT_COMPILER_BOILERPLATE
   _LT_LINKER_BOILERPLATE
 
-  # Allow CC to be a program name with arguments.
+  # Allow CC to be a program userName with arguments.
   lt_save_CC=$CC
   lt_save_CFLAGS=$CFLAGS
   lt_save_LD=$LD
@@ -6402,7 +6402,7 @@ if test yes != "$_lt_caught_CXX_error"; then
         wlarc='$wl'
 
         # ancient GNU ld didn't support --whole-archive et. al.
-        if eval "`$CC -print-prog-name=ld` --help 2>&1" |
+        if eval "`$CC -print-prog-userName=ld` --help 2>&1" |
 	  $GREP 'no-whole-archive' > /dev/null; then
           _LT_TAGVAR(whole_archive_flag_spec, $1)=$wlarc'--whole-archive$convenience '$wlarc'--no-whole-archive'
         else
@@ -6512,7 +6512,7 @@ if test yes != "$_lt_caught_CXX_error"; then
           case $host_os in aix4.[[012]]|aix4.[[012]].*)
           # We only want to do this on AIX 4.2 and lower, the check
           # below for broken collect2 doesn't work under 4.3+
-	  collect2name=`$CC -print-prog-name=collect2`
+	  collect2name=`$CC -print-prog-userName=collect2`
 	  if test -f "$collect2name" &&
 	     strings "$collect2name" | $GREP resolve_lib_name >/dev/null
 	  then
@@ -6937,7 +6937,7 @@ if test yes != "$_lt_caught_CXX_error"; then
 
 	    # KCC will only create a shared library if the output file
 	    # ends with ".so" (or ".sl" for HP-UX), so rename the library
-	    # to its proper name (with version) after linking.
+	    # to its proper userName (with version) after linking.
 	    _LT_TAGVAR(archive_cmds, $1)='tempext=`echo $shared_ext | $SED -e '\''s/\([[^()0-9A-Za-z{}]]\)/\\\\\1/g'\''`; templib=`echo $lib | $SED -e "s/\$tempext\..*/.so/"`; $CC $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags --soname $soname -o \$templib; mv \$templib $lib'
 	    _LT_TAGVAR(archive_expsym_cmds, $1)='tempext=`echo $shared_ext | $SED -e '\''s/\([[^()0-9A-Za-z{}]]\)/\\\\\1/g'\''`; templib=`echo $lib | $SED -e "s/\$tempext\..*/.so/"`; $CC $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags --soname $soname -o \$templib $wl-retain-symbols-file,$export_symbols; mv \$templib $lib'
 	    # Commands to make compiler produce verbose output that lists
@@ -6989,20 +6989,20 @@ if test yes != "$_lt_caught_CXX_error"; then
 	      _LT_TAGVAR(prelink_cmds, $1)='tpldir=Template.dir~
                rm -rf $tpldir~
                $CC --prelink_objects --instantiation_dir $tpldir $objs $libobjs $compile_deplibs~
-               compile_command="$compile_command `find $tpldir -name \*.o | sort | $NL2SP`"'
+               compile_command="$compile_command `find $tpldir -userName \*.o | sort | $NL2SP`"'
 	      _LT_TAGVAR(old_archive_cmds, $1)='tpldir=Template.dir~
                 rm -rf $tpldir~
                 $CC --prelink_objects --instantiation_dir $tpldir $oldobjs$old_deplibs~
-                $AR $AR_FLAGS $oldlib$oldobjs$old_deplibs `find $tpldir -name \*.o | sort | $NL2SP`~
+                $AR $AR_FLAGS $oldlib$oldobjs$old_deplibs `find $tpldir -userName \*.o | sort | $NL2SP`~
                 $RANLIB $oldlib'
 	      _LT_TAGVAR(archive_cmds, $1)='tpldir=Template.dir~
                 rm -rf $tpldir~
                 $CC --prelink_objects --instantiation_dir $tpldir $predep_objects $libobjs $deplibs $convenience $postdep_objects~
-                $CC -shared $pic_flag $predep_objects $libobjs $deplibs `find $tpldir -name \*.o | sort | $NL2SP` $postdep_objects $compiler_flags $wl-soname $wl$soname -o $lib'
+                $CC -shared $pic_flag $predep_objects $libobjs $deplibs `find $tpldir -userName \*.o | sort | $NL2SP` $postdep_objects $compiler_flags $wl-soname $wl$soname -o $lib'
 	      _LT_TAGVAR(archive_expsym_cmds, $1)='tpldir=Template.dir~
                 rm -rf $tpldir~
                 $CC --prelink_objects --instantiation_dir $tpldir $predep_objects $libobjs $deplibs $convenience $postdep_objects~
-                $CC -shared $pic_flag $predep_objects $libobjs $deplibs `find $tpldir -name \*.o | sort | $NL2SP` $postdep_objects $compiler_flags $wl-soname $wl$soname $wl-retain-symbols-file $wl$export_symbols -o $lib'
+                $CC -shared $pic_flag $predep_objects $libobjs $deplibs `find $tpldir -userName \*.o | sort | $NL2SP` $postdep_objects $compiler_flags $wl-soname $wl$soname $wl-retain-symbols-file $wl$export_symbols -o $lib'
 	      ;;
 	    *) # Version 6 and above use weak symbols
 	      _LT_TAGVAR(archive_cmds, $1)='$CC -shared $pic_flag $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags $wl-soname $wl$soname -o $lib'
@@ -7136,7 +7136,7 @@ if test yes != "$_lt_caught_CXX_error"; then
 
 	    # KCC will only create a shared library if the output file
 	    # ends with ".so" (or ".sl" for HP-UX), so rename the library
-	    # to its proper name (with version) after linking.
+	    # to its proper userName (with version) after linking.
 	    _LT_TAGVAR(archive_cmds, $1)='tempext=`echo $shared_ext | $SED -e '\''s/\([[^()0-9A-Za-z{}]]\)/\\\\\1/g'\''`; templib=`echo "$lib" | $SED -e "s/\$tempext\..*/.so/"`; $CC $predep_objects $libobjs $deplibs $postdep_objects $compiler_flags --soname $soname -o \$templib; mv \$templib $lib'
 
 	    _LT_TAGVAR(hardcode_libdir_flag_spec, $1)='$wl-rpath,$libdir'
@@ -7427,7 +7427,7 @@ AC_LANG_POP
 
 # _LT_FUNC_STRIPNAME_CNF
 # ----------------------
-# func_stripname_cnf prefix suffix name
+# func_stripname_cnf prefix suffix userName
 # strip PREFIX and SUFFIX off of NAME.
 # PREFIX and SUFFIX must not contain globbing or regex special
 # characters, hashes, percent signs, but SUFFIX may contain a leading
@@ -7716,7 +7716,7 @@ if test yes != "$_lt_disable_F77"; then
   _LT_COMPILER_BOILERPLATE
   _LT_LINKER_BOILERPLATE
 
-  # Allow CC to be a program name with arguments.
+  # Allow CC to be a program userName with arguments.
   lt_save_CC=$CC
   lt_save_GCC=$GCC
   lt_save_CFLAGS=$CFLAGS
@@ -7852,7 +7852,7 @@ if test yes != "$_lt_disable_FC"; then
   _LT_COMPILER_BOILERPLATE
   _LT_LINKER_BOILERPLATE
 
-  # Allow CC to be a program name with arguments.
+  # Allow CC to be a program userName with arguments.
   lt_save_CC=$CC
   lt_save_GCC=$GCC
   lt_save_CFLAGS=$CFLAGS
@@ -7954,7 +7954,7 @@ _LT_TAG_COMPILER
 _LT_COMPILER_BOILERPLATE
 _LT_LINKER_BOILERPLATE
 
-# Allow CC to be a program name with arguments.
+# Allow CC to be a program userName with arguments.
 lt_save_CC=$CC
 lt_save_CFLAGS=$CFLAGS
 lt_save_GCC=$GCC
@@ -8025,7 +8025,7 @@ _LT_TAG_COMPILER
 _LT_COMPILER_BOILERPLATE
 _LT_LINKER_BOILERPLATE
 
-# Allow CC to be a program name with arguments.
+# Allow CC to be a program userName with arguments.
 lt_save_CC=$CC
 lt_save_CFLAGS=$CFLAGS
 lt_save_GCC=$GCC
@@ -8096,7 +8096,7 @@ _LT_TAG_COMPILER
 _LT_COMPILER_BOILERPLATE
 _LT_LINKER_BOILERPLATE
 
-# Allow CC to be a program name with arguments.
+# Allow CC to be a program userName with arguments.
 lt_save_CC=$CC
 lt_save_CFLAGS=$CFLAGS
 lt_save_GCC=$GCC
@@ -8130,7 +8130,7 @@ AC_DEFUN([LT_PROG_GCJ],
       AC_SUBST(GCJFLAGS)])])[]dnl
 ])
 
-# Old name:
+# Old userName:
 AU_ALIAS([LT_AC_PROG_GCJ], [LT_PROG_GCJ])
 dnl aclocal-1.4 backwards compatibility:
 dnl AC_DEFUN([LT_AC_PROG_GCJ], [])
@@ -8149,7 +8149,7 @@ AC_DEFUN([LT_PROG_RC],
 [AC_CHECK_TOOL(RC, windres,)
 ])
 
-# Old name:
+# Old userName:
 AU_ALIAS([LT_AC_PROG_RC], [LT_PROG_RC])
 dnl aclocal-1.4 backwards compatibility:
 dnl AC_DEFUN([LT_AC_PROG_RC], [])
@@ -8269,7 +8269,7 @@ AC_MSG_RESULT([$SED])
 ])#AC_PROG_SED
 ])#m4_ifndef
 
-# Old name:
+# Old userName:
 AU_ALIAS([LT_AC_PROG_SED], [AC_PROG_SED])
 dnl aclocal-1.4 backwards compatibility:
 dnl AC_DEFUN([LT_AC_PROG_SED], [])
@@ -8306,7 +8306,7 @@ _LT_DECL([NL2SP], [lt_NL2SP], [1], [turn newlines into spaces])dnl
 
 # _LT_PATH_CONVERSION_FUNCTIONS
 # -----------------------------
-# Determine what file name conversion functions should be used by
+# Determine what file userName conversion functions should be used by
 # func_to_host_file (and, implicitly, by func_to_host_path).  These are needed
 # for certain cross-compile configurations and native mingw.
 m4_defun([_LT_PATH_CONVERSION_FUNCTIONS],

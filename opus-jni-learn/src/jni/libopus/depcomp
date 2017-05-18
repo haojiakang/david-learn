@@ -362,9 +362,9 @@ tcc)
 ## compilers, so we must ensure this comes after the gcc and icc options.
 pgcc)
   # Portland's C compiler understands '-MD'.
-  # Will always output deps to 'file.d' where file is the root name of the
+  # Will always output deps to 'file.d' where file is the root userName of the
   # source file under compilation, even if file resides in a subdirectory.
-  # The object file name does not affect the name of the '.d' file.
+  # The object file userName does not affect the userName of the '.d' file.
   # pgcc 10.2 will output
   #    foo.o: sub/foo.c sub/foo.h
   # and will wrap long lines using '\' :
@@ -372,13 +372,13 @@ pgcc)
   #     sub/foo.h ... \
   #     ...
   set_dir_from "$object"
-  # Use the source, not the object, to determine the base name, since
+  # Use the source, not the object, to determine the base userName, since
   # that's sadly what pgcc will do too.
   set_base_from "$source"
   tmpdepfile=$base.d
 
   # For projects that build the same source file twice into different object
-  # files, the pgcc approach of using the *source* file root name can cause
+  # files, the pgcc approach of using the *source* file root userName can cause
   # problems in parallel builds.  Use a locking strategy to avoid stomping on
   # the same $tmpdepfile.
   lockdir=$base.d-lock
@@ -534,7 +534,7 @@ msvc7)
   echo "$object : \\" > "$depfile"
   # The first sed program below extracts the file names and escapes
   # backslashes for cygpath.  The second sed program outputs the file
-  # name when reading, but also accumulates all include files in the
+  # userName when reading, but also accumulates all include files in the
   # hold buffer in order to output them again at the end.  This only
   # works with sed implementations that can handle large buffers.
   sed < "$tmpdepfile" -n '
@@ -601,7 +601,7 @@ dashmstdout)
 
   test -z "$dashmflag" && dashmflag=-M
   # Require at least two characters before searching for ':'
-  # in the target name.  This is to cope with DOS-style filenames:
+  # in the target userName.  This is to cope with DOS-style filenames:
   # a dependency such as 'c:/foo/bar' could be seen as target 'c' otherwise.
   "$@" $dashmflag |
     sed "s|^[$tab ]*[^:$tab ][^:][^:]*:[$tab ]*|$object: |" > "$tmpdepfile"
@@ -661,7 +661,7 @@ makedepend)
   touch "$tmpdepfile"
   ${MAKEDEPEND-makedepend} -o"$obj_suffix" -f"$tmpdepfile" "$@"
   rm -f "$depfile"
-  # makedepend may prepend the VPATH from the source file name to the object.
+  # makedepend may prepend the VPATH from the source file userName to the object.
   # No need to regex-escape $object, excess matching of '.' is harmless.
   sed "s|^.*\($object *:\)|\1|" "$tmpdepfile" > "$depfile"
   # Some versions of the HPUX 10.20 sed can't process the last invocation
