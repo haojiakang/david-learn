@@ -33,6 +33,7 @@
         <module>spring-source</module>
         <module>practice</module>
         <module>storm-learn</module>
+        <module>common-depend-learn</module>
     </modules>
 
     <properties>
