@@ -7,7 +7,7 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
-#1.先看看这个目录是否存在啊》
+#1.先看看这个目录是否存在啊
 read -p "Please input a directory: " dir
 if [ "$dir" == "" -o ! -d "$dir" ]; then
     echo "The $dir is NOT exit in your system."
