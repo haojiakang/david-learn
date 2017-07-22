@@ -34,6 +34,7 @@
         <module>practice</module>
         <module>storm-learn</module>
         <module>common-depend-learn</module>
+        <module>bootstrap</module>
     </modules>
 
     <properties>
