@@ -13,18 +13,15 @@ public class RemoveDuplicate {
 
     @Test
     public void doRemove() throws FileNotFoundException {
-        String source = "/Users/jiakang/IdeaProjects/david-learn/practice/src/calculateMinus/resources/new_flow_black_list_20170502.txt";
-        source = "/Users/jiakang/IdeaProjects/david-learn/practice/src/calculateMinus/resources/blacklist1705";
-        source = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/BlacklistOfJune";
-        String toRemove = "/Users/jiakang/IdeaProjects/david-learn/practice/src/calculateMinus/resources/whitelist";
-        toRemove = "/Users/jiakang/IdeaProjects/david-learn/practice/src/calculateMinus/resources/ABTest内测白名单文件";
-        toRemove = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/ABTest内测白名单文件June";
+        String source = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/new_flow_black_list_20170502.txt";
+        source = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/blacklist1705";
+        String toRemove = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/whitelist";
+        toRemove = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/ABTest内测白名单文件";
         Set<String> sourceSet = getSet(source);
         Set<String> toRemoveSet = getSet(toRemove);
         sourceSet.removeIf(x -> toRemoveSet.contains(x));
-        String newFile = "/Users/jiakang/IdeaProjects/david-learn/practice/src/calculateMinus/resources/newFile.txt";
-        newFile = "/Users/jiakang/IdeaProjects/david-learn/practice/src/calculateMinus/resources/newFile1705.txt";
-        newFile = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/newFileJune.txt";
+        String newFile = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/newFile.txt";
+        newFile = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/newFile1705.txt";
         writeFile(newFile, sourceSet);
     }
 
