@@ -14,11 +14,14 @@ public class RemoveDuplicate {
     @Test
     public void doRemove() throws FileNotFoundException {
         String fileName = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/new_flow_black_list_20170502.txt";
+        fileName = "/Users/jiakang/oldCode/david-learn/practice/src/test/resources/blacklist_July.July";
         String fileName2 = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/whitelist";
+        fileName2 = "/Users/jiakang/oldCode/david-learn/practice/src/test/resources/消息箱内部灰度白名单.txt";
         Set<String> set1 = getSet(fileName);
         Set<String> set2 = getSet(fileName2);
         set1.removeIf(x -> set2.contains(x));
         String newFile = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/newFile.txt";
+        newFile = "/Users/jiakang/oldCode/david-learn/practice/src/test/resources/newFile_July.txt";
         writeFile(newFile, set1);
     }
 
