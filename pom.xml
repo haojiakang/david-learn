@@ -35,6 +35,8 @@
         <module>storm-learn</module>
         <module>common-depend-learn</module>
         <module>bootstrap</module>
+        <module>java8-learn</module>
+        <module>spring-boot-learn</module>
     </modules>
 
     <properties>
