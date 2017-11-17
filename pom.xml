@@ -14,7 +14,6 @@
         <module>comet-learn</module>
         <module>guava-learn</module>
         <module>jedis-learn</module>
-        <module>jmeter-learn</module>
         <module>learn-logback</module>
         <module>netty-learn</module>
         <module>NIO-learn</module>
@@ -34,9 +33,12 @@
         <module>practice</module>
         <module>storm-learn</module>
         <module>common-depend-learn</module>
-        <module>bootstrap</module>
         <module>java8-learn</module>
-        <module>spring-boot-learn</module>
+        <module>bootstrap</module>
+        <module>motan-learn</module>
+        <module>trigger-client</module>
+        <module>spring-aop-learn</module>
+        <module>spock-learn</module>
     </modules>
 
     <properties>

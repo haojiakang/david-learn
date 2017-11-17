@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="warn" name="offlinestorm-proc">
+    <Properties>
+        <!--<Property name="log-path">../logs</Property>-->
+        <Property name="log-path">/Users/jiakang/IdeaProjects/david-learn/trigger-client/logs</Property>
+        <Property name="log-file-sizelimit">1GB</Property>
+        <Property name="scribe.server.host">127.0.0.1</Property>
+    </Properties>
+
+    <ExceptionFilter/>
+
+    <Appenders>
+        <console name="stdout">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p] %c{1} %m %X{request_id} %sEx{request_id}%n</Pattern>
+            </PatternLayout>
+        </console>
+
+        <RollingFile name="info" fileName="${log-path}/info.log"
+                     filePattern="${log-path}/info.log.%d{yyyyMMdd-HH}">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p] %c{1} %m %X{request_id} %sEx{request_id}%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="slow" fileName="${log-path}/slow.log" filePattern="${log-path}/slow.log.%d{yyyyMMdd-HH}">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p] %c{1} %m %X{request_id} %sEx{request_id}%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+
+        <RollingFile name="warn" fileName="${log-path}/warn.log"
+                     filePattern="${log-path}/warn.log.%d{yyyyMMdd}">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p] %c{1} %m %X{request_id} %sEx{request_id}%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="access" fileName="${log-path}/access.log"
+                     filePattern="${log-path}/access.log.%d{yyyyMMdd-HH}">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss SSS} [%p] %c{1} ACCESS %m %X{request_id} %sEx{request_id}%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="profile" fileName="${log-path}/profile.log"
+                     filePattern="${log-path}/profile.log.%d{yyyyMMdd-HH}">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %m %sEx{request_id}%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+
+        <RollingFile name="local_serviceStatsLog" fileName="${log-path}/serviceStatsLog.log"
+                     filePattern="${log-path}/serviceStatsLog.log.%d{yyyyMMdd}">
+            <PatternLayout>
+                <Pattern>%d{HH:mm:ss} %m %sEx{request_id}%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+        <Scribe name="receive-log-scribe" host="${sys:scribe.server.host}" port="1463" category="common_involve_receive" appendHost="false">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss}\t%m%n</pattern>
+            </PatternLayout>
+        </Scribe>
+        <RollingFile name="receive-log-local" fileName="${log-path}/receive_local.log"
+                     filePattern="${log-path}/receive_local.log.%d{yyyyMMdd-HH}">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %msg %X{request_id}%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.david.learn" level="info" additivity="false">
+            <appender-ref ref="info" level="info"/>
+        </Logger>
+
+        <Logger name="info" level="info" additivity="false">
+            <appender-ref ref="info" level="info"/>
+        </Logger>
+
+        <Logger name="access" level="info" additivity="false">
+            <appender-ref ref="access" level="info"/>
+        </Logger>
+
+        <Logger name="steplog" level="info" additivity="false">
+            <appender-ref ref="slow" level="info"/>
+        </Logger>
+
+        <Logger name="profile" level="info" additivity="false">
+            <appender-ref ref="profile" level="info"/>
+        </Logger>
+
+        <Logger name="serviceStatsLog" level="info" additivity="false">
+            <appender-ref ref="local_serviceStatsLog" level="info"/>
+        </Logger>
+
+        <Logger name="op" level="info" additivity="false">
+            <appender-ref ref="receive-log-scribe" level="info"/>
+            <appender-ref ref="receive-log-local" level="info"/>
+        </Logger>
+
+        <ROOT level="warn">
+            <appender-ref ref="info" level="info"/>
+            <appender-ref ref="warn" level="warn"/>
+        </ROOT>
+    </Loggers>
+
+</Configuration>

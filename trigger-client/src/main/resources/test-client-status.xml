@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:motan="http://api.weibo.com/schema/motan"
+       xmlns:trigger="http://api.weibo.com/schema/trigger"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://api.weibo.com/schema/motan http://api.weibo.com/schema/motan.xsd http://api.weibo.com/schema/trigger http://api.weibo.com/schema/trigger.xsd">
+
+
+    <motan:registry id="vintage_trigger"
+                    name="vintage_trigger"
+                    regProtocol="trigger_vintage"
+                    address="config.api.weibo.com"
+                    port="80"
+                    excise="dynamic"
+                    registrySessionTimeout="10000" />
+
+    <trigger:tmc id="commonMessageTriggerClient"
+                 registry="vintage_trigger"
+                 group="other-core"
+                 consumerGroupId="platform_communication_other_jiakang264#ephemeral"
+                 consumerId="message_flow_read_commonmessage"
+                 socketTimeOut="5000"
+                 event="add"
+                 maxSize="100"
+                 type="common_flow_message"
+                 recordEmptyLog="false">
+    </trigger:tmc>
+</beans>
