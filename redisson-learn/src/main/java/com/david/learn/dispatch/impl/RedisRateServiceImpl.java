@@ -28,6 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *          <constructor-arg name="jedisAddress" value="10.75.0.27:6380"/>
  *          <constructor-arg name="rateLimitKey" value="indirect_material"/>
  *          <constructor-arg name="maxPermits" value="3000"/>
+ *          <constructor-arg name="defaultSingleMaxQps" value="200"/>
  *          <!--<constructor-arg name="monitorPeriodInMillis" value="50"/>-->
  *          <!--<constructor-arg name="waitPeriodInMillis" value="5"/>-->
  *      </bean>
@@ -53,16 +54,18 @@ public class RedisRateServiceImpl implements RedisRateService {
     /** 当前已用许可数的key后缀 */
     private static final String USED_PERMITS_SUFFIX = "_u";
 
-    public RedisRateServiceImpl(String jedisAddress, String rateLimitKey, int maxPermits) {
+    public RedisRateServiceImpl(String jedisAddress, String rateLimitKey, int maxPermits, int defaultSingleMaxQps) {
         this.jedisAddress = jedisAddress;
         this.rateLimitKey = rateLimitKey;
         this.maxPermits = maxPermits;
+        this.defaultSingleMaxQps = defaultSingleMaxQps;
     }
 
-    public RedisRateServiceImpl(String jedisAddress, String rateLimitKey, int maxPermits, int monitorPeriodInMillis, int waitPeriodInMillis) {
+    public RedisRateServiceImpl(String jedisAddress, String rateLimitKey, int maxPermits, int defaultSingleMaxQps, int monitorPeriodInMillis, int waitPeriodInMillis) {
         this.jedisAddress = jedisAddress;
         this.rateLimitKey = rateLimitKey;
         this.maxPermits = maxPermits;
+        this.defaultSingleMaxQps = defaultSingleMaxQps;
         this.monitorPeriodInMillis = monitorPeriodInMillis;
         this.waitPeriodInMillis = waitPeriodInMillis;
     }
@@ -81,6 +84,10 @@ public class RedisRateServiceImpl implements RedisRateService {
      */
     private volatile int maxPermits;
     /**
+     * 默认单机限速qps（仅在redis脚本出错时生效，是一个补救措施，切勿依赖此参数）
+     */
+    private int defaultSingleMaxQps;
+    /**
      * 从redis获取许可的执行间隔
      */
     private int monitorPeriodInMillis = 50;
@@ -94,10 +101,13 @@ public class RedisRateServiceImpl implements RedisRateService {
     private Jedis jedis;
 
     /** 每秒钟从redis获取许可执行次数 */
-    private int applyCountPerSecond;
+    private volatile int applyCountPerSecond;
 
     /** 每次从redis申请的许可数 */
-    private int incrCount;
+    private volatile int incrCount;
+
+    /** 默认每次从redis申请来的许可数，以defaultSingleMaxQps计算 */
+    private volatile int defaultApplyCount;
 
     /** redis最大qps的key */
     private String maxPermitsKey;
@@ -127,6 +137,7 @@ public class RedisRateServiceImpl implements RedisRateService {
         Preconditions.checkArgument(Strings.isNotEmpty(jedisAddress), String.format("jedisAddress(%s) can not be empty", jedisAddress));
         Preconditions.checkArgument(Strings.isNotEmpty(rateLimitKey), String.format("rateLimitKey(%s) can not be empty", rateLimitKey));
         Preconditions.checkArgument(maxPermits > 0, String.format("maxPermits(%s) should be positive", maxPermits));
+        Preconditions.checkArgument(defaultSingleMaxQps > 0, String.format("defaultSingleMaxQps(%s) should be positive", defaultSingleMaxQps));
         Preconditions.checkArgument(monitorPeriodInMillis > 0, String.format("incrCount(%s) should be positive", monitorPeriodInMillis));
         Preconditions.checkArgument(waitPeriodInMillis > 0, String.format("waitPeriodInMillis(%s) should be positive", waitPeriodInMillis));
     }
@@ -227,8 +238,15 @@ public class RedisRateServiceImpl implements RedisRateService {
      * @return 申请到的许可数
      */
     private int applyTokenFromRedis() {
-        Long realIncrCount = (Long) jedis.evalsha(shaKey, 1, usedPermitsKey, Integer.toString(maxPermits), Integer.toString(incrCount));
-        return realIncrCount.intValue();
+        int realApplyCount;
+        try {
+            Long realIncrCount = (Long) jedis.evalsha(shaKey, 1, usedPermitsKey, Integer.toString(maxPermits), Integer.toString(incrCount));
+            realApplyCount = realIncrCount.intValue();
+        } catch (Exception e) {
+            realApplyCount = defaultApplyCount;
+            log.warn("applyTokenFromRedis error, so use default. usedPermitsKey:{}, maxPermits:{}, incrCount:{}, defaultApplyCount:{}", usedPermitsKey, maxPermits, incrCount, defaultApplyCount, e);
+        }
+        return realApplyCount;
     }
 
     /**
@@ -312,6 +330,7 @@ public class RedisRateServiceImpl implements RedisRateService {
     private void resync() {
         applyCountPerSecond = 1000 / monitorPeriodInMillis;
         incrCount = maxPermits / applyCountPerSecond;
+        defaultApplyCount = defaultSingleMaxQps / applyCountPerSecond;
         log.info("resync done, monitorPeriodInMillis:{}, applyCountPerSecond:{}, maxPermits:{}, incrCount:{}", monitorPeriodInMillis, applyCountPerSecond, maxPermits, incrCount);
     }
 
@@ -325,6 +344,10 @@ public class RedisRateServiceImpl implements RedisRateService {
 
     public int getMaxPermits() {
         return maxPermits;
+    }
+
+    public int getDefaultSingleMaxQps() {
+        return defaultSingleMaxQps;
     }
 
     public int getMonitorPeriodInMillis() {
@@ -345,6 +368,10 @@ public class RedisRateServiceImpl implements RedisRateService {
 
     public int getIncrCount() {
         return incrCount;
+    }
+
+    public int getDefaultApplyCount() {
+        return defaultApplyCount;
     }
 
     public String getMaxPermitsKey() {
