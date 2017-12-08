@@ -40,6 +40,7 @@
         <module>spring-aop-learn</module>
         <module>spock-learn</module>
         <module>redisson-learn</module>
+        <module>global-limiter</module>
     </modules>
 
     <properties>
