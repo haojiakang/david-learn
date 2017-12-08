@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:redisson="http://redisson.org/schema/redisson"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://redisson.org/schema/redisson http://redisson.org/schema/redisson.xsd">
+
+    <redisson:client id="rateLimitClient">
+        <redisson:single-server address="10.75.0.27:6380"/>
+    </redisson:client>
+
+</beans>

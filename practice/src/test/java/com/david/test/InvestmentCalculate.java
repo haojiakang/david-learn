@@ -1,4 +1,4 @@
-package com.david.learn;
+package com.david.test;
 
 import org.junit.Test;
 
