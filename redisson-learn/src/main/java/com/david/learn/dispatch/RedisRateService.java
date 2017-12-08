@@ -16,14 +16,14 @@ public interface RedisRateService {
 
     /**
      * 请求许可
-     * @param count 请求的许可数
+     * @param permits 请求的许可数
      * @return 许可等待时间 in millis
      */
-    long acquire(int count);
+    long acquire(int permits);
 
     /**
-     * 重设最大许可的qps数
-     * @param maxPermits 最大许可的qps数
+     * 重设全局最大许可的qps数
+     * @param maxPermits 全局最大许可的qps数
      */
-    void reSetMaxPermits(int maxPermits);
+    void resetMaxPermits(int maxPermits);
 }

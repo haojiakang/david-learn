@@ -5,7 +5,6 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Stopwatch;
 import com.google.common.io.ByteStreams;
-import com.google.common.util.concurrent.Uninterruptibles;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import redis.clients.jedis.Jedis;
@@ -28,9 +27,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  *          <constructor-arg name="jedisAddress" value="10.75.0.27:6380"/>
  *          <constructor-arg name="rateLimitKey" value="indirect_material"/>
  *          <constructor-arg name="maxPermits" value="3000"/>
- *          <constructor-arg name="defaultSingleMaxQps" value="200"/>
+ *          <constructor-arg name="defaultMcSize" value="15"/>
  *          <!--<constructor-arg name="monitorPeriodInMillis" value="50"/>-->
- *          <!--<constructor-arg name="waitPeriodInMillis" value="5"/>-->
  *      </bean>
  *  代码中注入bean：
  *      @Resource
@@ -54,20 +52,19 @@ public class RedisRateServiceImpl implements RedisRateService {
     /** 当前已用许可数的key后缀 */
     private static final String USED_PERMITS_SUFFIX = "_u";
 
-    public RedisRateServiceImpl(String jedisAddress, String rateLimitKey, int maxPermits, int defaultSingleMaxQps) {
+    public RedisRateServiceImpl(String jedisAddress, String rateLimitKey, int maxPermits, int defaultMcSize) {
         this.jedisAddress = jedisAddress;
         this.rateLimitKey = rateLimitKey;
         this.maxPermits = maxPermits;
-        this.defaultSingleMaxQps = defaultSingleMaxQps;
+        this.defaultMcSize = defaultMcSize;
     }
 
-    public RedisRateServiceImpl(String jedisAddress, String rateLimitKey, int maxPermits, int defaultSingleMaxQps, int monitorPeriodInMillis, int waitPeriodInMillis) {
+    public RedisRateServiceImpl(String jedisAddress, String rateLimitKey, int maxPermits, int defaultMcSize, int monitorPeriodInMillis) {
         this.jedisAddress = jedisAddress;
         this.rateLimitKey = rateLimitKey;
         this.maxPermits = maxPermits;
-        this.defaultSingleMaxQps = defaultSingleMaxQps;
+        this.defaultMcSize = defaultMcSize;
         this.monitorPeriodInMillis = monitorPeriodInMillis;
-        this.waitPeriodInMillis = waitPeriodInMillis;
     }
 
     /**
@@ -84,30 +81,26 @@ public class RedisRateServiceImpl implements RedisRateService {
      */
     private volatile int maxPermits;
     /**
-     * 默认单机限速qps（仅在redis脚本出错时生效，是一个补救措施，切勿依赖此参数）
+     * 默认服务机器数（用于lua脚本出错时设置默认的单机qps）
      */
-    private int defaultSingleMaxQps;
+    private int defaultMcSize;
     /**
      * 从redis获取许可的执行间隔
      */
     private int monitorPeriodInMillis = 50;
-    /**
-     * 业务线程在许可不够时的等待间隔
-     */
-    private int waitPeriodInMillis = 5;
 
 
     /** jedis客户端 */
     private Jedis jedis;
 
     /** 每秒钟从redis获取许可执行次数 */
-    private volatile int applyCountPerSecond;
+    private volatile int applyCountsPerSecond;
 
     /** 每次从redis申请的许可数 */
-    private volatile int incrCount;
+    private volatile int applyPermitsPerCount;
 
-    /** 默认每次从redis申请来的许可数，以defaultSingleMaxQps计算 */
-    private volatile int defaultApplyCount;
+    /** 默认每次从redis申请来的许可数，以maxPermits和defaultMcSize计算 */
+    private volatile int defaultApplyPermitsPerCount;
 
     /** redis最大qps的key */
     private String maxPermitsKey;
@@ -137,9 +130,8 @@ public class RedisRateServiceImpl implements RedisRateService {
         Preconditions.checkArgument(Strings.isNotEmpty(jedisAddress), String.format("jedisAddress(%s) can not be empty", jedisAddress));
         Preconditions.checkArgument(Strings.isNotEmpty(rateLimitKey), String.format("rateLimitKey(%s) can not be empty", rateLimitKey));
         Preconditions.checkArgument(maxPermits > 0, String.format("maxPermits(%s) should be positive", maxPermits));
-        Preconditions.checkArgument(defaultSingleMaxQps > 0, String.format("defaultSingleMaxQps(%s) should be positive", defaultSingleMaxQps));
-        Preconditions.checkArgument(monitorPeriodInMillis > 0, String.format("incrCount(%s) should be positive", monitorPeriodInMillis));
-        Preconditions.checkArgument(waitPeriodInMillis > 0, String.format("waitPeriodInMillis(%s) should be positive", waitPeriodInMillis));
+        Preconditions.checkArgument(defaultMcSize > 0, String.format("defaultMcSize(%s) should be positive", defaultMcSize));
+        Preconditions.checkArgument(monitorPeriodInMillis > 0, String.format("applyPermitsPerCount(%s) should be positive", monitorPeriodInMillis));
     }
 
     /**
@@ -198,8 +190,8 @@ public class RedisRateServiceImpl implements RedisRateService {
                     log.info("values of newMaxPermits and maxPermits are equal, so not update maxPermits. maxPermitsKey:{}, newMaxPermits:{}, maxPermits:{}", maxPermitsKey, newMaxPermits, maxPermits);
                     return;
                 }
-                reSetMaxPermits(newMaxPermits);
-                log.info("detected new maxPermits value from redis, so update local maxPermits and recalculate incrCount. maxPermitsKey:{}, newMaxPermits:{}, maxPermits:{}", maxPermitsKey, newMaxPermits, maxPermits);
+                resetMaxPermits(newMaxPermits);
+                log.info("detected new maxPermits value from redis, so update local maxPermits and recalculate applyPermitsPerCount. maxPermitsKey:{}, newMaxPermits:{}, maxPermits:{}", maxPermitsKey, newMaxPermits, maxPermits);
             }
         }, 0, TimeUnit.MINUTES.toMillis(1));
     }
@@ -238,15 +230,15 @@ public class RedisRateServiceImpl implements RedisRateService {
      * @return 申请到的许可数
      */
     private int applyTokenFromRedis() {
-        int realApplyCount;
+        int realAppliedPermits;
         try {
-            Long realIncrCount = (Long) jedis.evalsha(shaKey, 1, usedPermitsKey, Integer.toString(maxPermits), Integer.toString(incrCount));
-            realApplyCount = realIncrCount.intValue();
+            Long realIncrCount = (Long) jedis.evalsha(shaKey, 1, usedPermitsKey, Integer.toString(maxPermits), Integer.toString(applyPermitsPerCount));
+            realAppliedPermits = realIncrCount.intValue();
         } catch (Exception e) {
-            realApplyCount = defaultApplyCount;
-            log.warn("applyTokenFromRedis error, so use default. usedPermitsKey:{}, maxPermits:{}, incrCount:{}, defaultApplyCount:{}", usedPermitsKey, maxPermits, incrCount, defaultApplyCount, e);
+            realAppliedPermits = defaultApplyPermitsPerCount;
+            log.warn("applyTokenFromRedis error, so use default. usedPermitsKey:{}, maxPermits:{}, applyPermitsPerCount:{}", usedPermitsKey, maxPermits, applyPermitsPerCount, e);
         }
-        return realApplyCount;
+        return realAppliedPermits;
     }
 
     /**
@@ -261,24 +253,24 @@ public class RedisRateServiceImpl implements RedisRateService {
 
     /**
      * 请求许可
-     * @param count 请求的许可数
+     * @param permits 请求的许可数
      * @return 许可等待时间 in millis
      */
     @Override
-    public long acquire(int count) {
+    public long acquire(int permits) {
         Stopwatch stopwatch = Stopwatch.createStarted();
 
         synchronized (mutex()) {
             int current = storedPermits.get();
             //如果申请的许可数大于本地当前剩余许可数，则先获取剩余的许可，休息片刻后，再次从本地获取许可，直到所有许可都获取到
-            while (count > current) {
-                count -= current;
+            while (permits > current) {
+                permits -= current;
                 storedPermits.addAndGet(-current);
                 waitOnMutex();
                 current = storedPermits.get();
             }
             //从本地许可数里面减去申请的许可
-            storedPermits.addAndGet(-count);
+            storedPermits.addAndGet(-permits);
         }
 
         stopwatch.stop();
@@ -315,11 +307,11 @@ public class RedisRateServiceImpl implements RedisRateService {
     }
 
     /**
-     * 重设最大许可的qps数
-     * @param maxPermits 最大许可的qps数
+     * 重设全局最大许可的qps数
+     * @param maxPermits 全局最大许可的qps数
      */
     @Override
-    public void reSetMaxPermits(int maxPermits) {
+    public void resetMaxPermits(int maxPermits) {
         this.maxPermits = maxPermits;
         resync();
     }
@@ -328,10 +320,10 @@ public class RedisRateServiceImpl implements RedisRateService {
      * 重置一些关联属性值
      */
     private void resync() {
-        applyCountPerSecond = 1000 / monitorPeriodInMillis;
-        incrCount = maxPermits / applyCountPerSecond;
-        defaultApplyCount = defaultSingleMaxQps / applyCountPerSecond;
-        log.info("resync done, monitorPeriodInMillis:{}, applyCountPerSecond:{}, maxPermits:{}, incrCount:{}", monitorPeriodInMillis, applyCountPerSecond, maxPermits, incrCount);
+        applyCountsPerSecond = 1000 / monitorPeriodInMillis;
+        applyPermitsPerCount = maxPermits / applyCountsPerSecond;
+        defaultApplyPermitsPerCount = (maxPermits / defaultMcSize) / applyCountsPerSecond;
+        log.info("resync done, monitorPeriodInMillis:{}, applyCountsPerSecond:{}, maxPermits:{}, applyPermitsPerCount:{}", monitorPeriodInMillis, applyCountsPerSecond, maxPermits, applyPermitsPerCount);
     }
 
     public String getJedisAddress() {
@@ -346,32 +338,28 @@ public class RedisRateServiceImpl implements RedisRateService {
         return maxPermits;
     }
 
-    public int getDefaultSingleMaxQps() {
-        return defaultSingleMaxQps;
+    public int getDefaultMcSize() {
+        return defaultMcSize;
     }
 
     public int getMonitorPeriodInMillis() {
         return monitorPeriodInMillis;
     }
 
-    public int getWaitPeriodInMillis() {
-        return waitPeriodInMillis;
-    }
-
     public Jedis getJedis() {
         return jedis;
     }
 
-    public int getApplyCountPerSecond() {
-        return applyCountPerSecond;
+    public int getApplyCountsPerSecond() {
+        return applyCountsPerSecond;
     }
 
-    public int getIncrCount() {
-        return incrCount;
+    public int getApplyPermitsPerCount() {
+        return applyPermitsPerCount;
     }
 
-    public int getDefaultApplyCount() {
-        return defaultApplyCount;
+    public int getDefaultApplyPermitsPerCount() {
+        return defaultApplyPermitsPerCount;
     }
 
     public String getMaxPermitsKey() {
@@ -393,9 +381,5 @@ public class RedisRateServiceImpl implements RedisRateService {
     public void setMonitorPeriodInMillis(int monitorPeriodInMillis) {
         this.monitorPeriodInMillis = monitorPeriodInMillis;
         resync();
-    }
-
-    public void setWaitPeriodInMillis(int waitPeriodInMillis) {
-        this.waitPeriodInMillis = waitPeriodInMillis;
     }
 }

@@ -8,7 +8,7 @@
         <constructor-arg name="jedisAddress" value="10.75.0.27:6380"/>
         <constructor-arg name="rateLimitKey" value="indirect_material"/>
         <constructor-arg name="maxPermits" value="3000"/>
-        <constructor-arg name="defaultSingleMaxQps" value="200"/>
+        <constructor-arg name="defaultMcSize" value="15"/>
         <!--<constructor-arg name="monitorPeriodInMillis" value="50"/>-->
         <!--<constructor-arg name="waitPeriodInMillis" value="5"/>-->
     </bean>

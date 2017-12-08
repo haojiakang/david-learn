@@ -31,4 +31,11 @@ public class RateLuaTest {
 //        jedis.evalsha(eval)
         System.out.println(result);
     }
+
+    @Test
+    public void testToNumber() {
+        Object eval = jedis.eval("local value = ARGV[1]; return tonumber(value)", 0, "20.38");
+        System.out.println(eval);
+
+    }
 }
