@@ -1,4 +1,4 @@
-package com.david.learn.dispatch;
+package com.david.learn.globalLimiter;
 
 /**
  * Created by jiakang on 2017/12/5.

@@ -4,9 +4,11 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="redisRateService" class="com.david.learn.dispatch.impl.RedisRateServiceImpl">
+    <import resource="redisson.xml"/>
+
+    <bean id="redisRateService" class="com.david.learn.globalLimiter.impl.RedisRateServiceImpl">
         <constructor-arg name="jedisAddress" value="10.75.0.27:6380"/>
-        <constructor-arg name="rateLimitKey" value="indirect_material"/>
+        <constructor-arg name="rateLimitKey" value="indirect_material_test"/>
         <constructor-arg name="maxPermits" value="3000"/>
         <constructor-arg name="defaultMcSize" value="15"/>
         <!--<constructor-arg name="monitorPeriodInMillis" value="50"/>-->

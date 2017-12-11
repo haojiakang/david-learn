@@ -1,6 +1,6 @@
-package com.david.learn.dispatch.impl;
+package com.david.learn.globalLimiter.impl;
 
-import com.david.learn.dispatch.RedisRateService;
+import com.david.learn.globalLimiter.RedisRateService;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Stopwatch;
@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * 示例：
  *  spring中添加：
- *      <bean id="redisRateService" class="com.david.learn.dispatch.impl.RedisRateServiceImpl">
+ *      <bean id="redisRateService" class="com.david.learn.globalLimiter.impl.RedisRateServiceImpl">
  *          <constructor-arg name="jedisAddress" value="10.75.0.27:6380"/>
  *          <constructor-arg name="rateLimitKey" value="indirect_material"/>
  *          <constructor-arg name="maxPermits" value="3000"/>
@@ -217,8 +217,8 @@ public class RedisRateServiceImpl implements RedisRateService {
                     //将redis申请来的许可加入本地存数的许可数里面
                     storedPermits.addAndGet(realIncrCount);
                     //通知所有等待的线程
-                    synchronized (mutex()) {
-                        mutex().notifyAll();
+                    synchronized (mutexWait) {
+                        mutexWait.notifyAll();
                     }
                 }
             }
@@ -260,7 +260,7 @@ public class RedisRateServiceImpl implements RedisRateService {
     public long acquire(int permits) {
         Stopwatch stopwatch = Stopwatch.createStarted();
 
-        synchronized (mutex()) {
+        synchronized (mutexEntry) {
             int current = storedPermits.get();
             //如果申请的许可数大于本地当前剩余许可数，则先获取剩余的许可，休息片刻后，再次从本地获取许可，直到所有许可都获取到
             while (permits > current) {
@@ -279,32 +279,36 @@ public class RedisRateServiceImpl implements RedisRateService {
 
     /** 当前线程在mutex()上等待 */
     private void waitOnMutex() {
-        try {
-            mutex().wait();
-        } catch (InterruptedException e) {
-            log.warn("waitOnMutex error", e);
+        synchronized (mutexWait) {
+            try {
+                mutexWait.wait();
+            } catch (InterruptedException e) {
+                log.warn("waitOnMutex error", e);
+            }
         }
     }
 
     /** 互斥锁对象 */
-    private volatile Object mutexDoNotUseDirectly;
+    private final Object mutexWait = new Object();
 
-    /**
-     * 获取互斥锁
-     * 参考guava
-     */
-    private Object mutex() {
-        Object mutex = mutexDoNotUseDirectly;
-        if (mutex == null) {
-            synchronized (this) {
-                mutex = mutexDoNotUseDirectly;
-                if (mutex == null) {
-                    mutexDoNotUseDirectly = mutex = new Object();
-                }
-            }
-        }
-        return mutex;
-    }
+    private final Object mutexEntry = new Object();
+
+//    /**
+//     * 获取互斥锁
+//     * 参考guava
+//     */
+//    private Object mutex() {
+//        Object mutex = mutexDoNotUseDirectly;
+//        if (mutex == null) {
+//            synchronized (this) {
+//                mutex = mutexDoNotUseDirectly;
+//                if (mutex == null) {
+//                    mutexDoNotUseDirectly = mutex = new Object();
+//                }
+//            }
+//        }
+//        return mutex;
+//    }
 
     /**
      * 重设全局最大许可的qps数

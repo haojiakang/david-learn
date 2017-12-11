@@ -17,15 +17,12 @@
         <module>learn-logback</module>
         <module>netty-learn</module>
         <module>NIO-learn</module>
-        <module>perf4j-learn</module>
         <module>rabbitmq-learn</module>
         <module>shell-script-learn</module>
         <module>javaVm-learn</module>
         <module>protostuff-learn</module>
         <module>design-model</module>
-        <module>logback-learn</module>
         <module>rocketmq-learn</module>
-        <module>powermock-learn</module>
         <module>jni-learn</module>
         <module>opus-jni-learn</module>
         <module>concurrent-learn</module>
