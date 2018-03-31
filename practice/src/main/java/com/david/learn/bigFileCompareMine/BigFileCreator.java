@@ -94,11 +94,17 @@ public class BigFileCreator {
     }
 
     public static void main(String[] args) {
-        String destBigFile = "source_big1.txt";
         int lineNumber = 100000;
-        String workPath = "/Users/jiakang/bigFileMine/";
+        String workPath = "bigFile";
+
+        String destBigFile = "source_big0.txt";
         BigFileCreator bigFileCreator = new BigFileCreator(workPath, destBigFile, lineNumber);
         bigFileCreator.createFile();
         log.info("big file create done. workPath:{}, destBigFile:{}, lineNumber:{}", workPath, destBigFile, lineNumber);
+
+        String destBigFile1 = "source_big1.txt";
+        BigFileCreator bigFileCreator1 = new BigFileCreator(workPath, destBigFile1, lineNumber);
+        bigFileCreator1.createFile();
+        log.info("big file create done. workPath:{}, destBigFile:{}, lineNumber:{}", workPath, destBigFile1, lineNumber);
     }
 }

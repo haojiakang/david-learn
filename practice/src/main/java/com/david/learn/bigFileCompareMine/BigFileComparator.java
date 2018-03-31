@@ -322,9 +322,9 @@ public class BigFileComparator {
     }
 
     public static void main(String[] args) {
-        String baseFile = "/Users/jiakang/bigFileMine/source_big0.txt";
-        String toCompareFile = "/Users/jiakang/bigFileMine/source_big1.txt";
-        String resultFile = "/Users/jiakang/bigFileMine/result_same_big.txt";
+        String baseFile = "bigFile/source_big0.txt";
+        String toCompareFile = "bigFile/source_big1.txt";
+        String resultFile = "bigFile/result_same_big.txt";
         BigFileComparator bigFileComparator = new BigFileComparator(baseFile, toCompareFile, resultFile);
 
         bigFileComparator.compareAndWriteFile();
