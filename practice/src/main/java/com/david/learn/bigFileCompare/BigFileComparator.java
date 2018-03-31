@@ -104,7 +104,7 @@ public class BigFileComparator {
                     toCompareReadNext = false;
                     baseReadNext = true;
                 }
-                if (cacheLines.size() > 10000) {
+                if (cacheLines.size() >= 10000) {
                     writeToFile(fileWriter, cacheLines);
                     log.info("writeToFile, file:{}, cacheLines.size:{}", resultFile, cacheLines.size());
                     cacheLines.clear();
