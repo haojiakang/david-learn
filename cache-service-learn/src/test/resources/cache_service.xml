@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:weibo="http://api.weibo.com/schema/weibo"
+       xmlns:motan="http://api.weibo.com/schema/motan"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://api.weibo.com/schema/weibo http://api.weibo.com/schema/weibo.xsd
+       http://api.weibo.com/schema/motan http://api.weibo.com/schema/motan.xsd">
+
+    <motan:registry name="vintageTest" regProtocol="vintage"
+                    address="config.api.weibo.com" port="80" requestTimeout="1000"
+                    registrySessionTimeout="10000" registryRetryPeriod="30000" check="false"
+                    register="false" subscribe="true" excise="dynamic" />
+
+    <bean id="cacheServiceRecoveryConfigNotifer" class="com.weibo.api.motan.client.memcache.CacheServiceRecoveryConfigNotifer" init-method="init">
+        <property name="configServiceHost" value="config.api.weibo.com"/>
+        <property name="configServicePort" value="80"/>
+    </bean>
+
+    <weibo:cstemplate id="cacheService" namespace="dm-feedinbox-cache-v2"
+                      expire="21600" registry="vintageTest" group="cache.service.dm.pool.yf"
+                      recovery="cacheServiceRecoveryConfigNotifer"
+                      minSpareConnections="5" maxSpareConnections="15">
+        <!--<property name="useMotanMcClient" value="true"/>-->
+    </weibo:cstemplate>
+
+</beans>

@@ -28,6 +28,14 @@ public class RemoveDuplicate {
         writeFile(newFile, sourceSet);
     }
 
+    @Test
+    public void removeDup() {
+        String source = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/intranet_white_list.properties";
+        Set<String> sourceSet = getSet(source);
+        String newFile = "/Users/jiakang/IdeaProjects/david-learn/practice/src/test/resources/new_intranet_white_list.properties";
+        writeFile(newFile, sourceSet);
+    }
+
     private Set<String> getSet(String fileName) {
         try (FileReader reader = new FileReader(fileName);
              BufferedReader bufferedReader = new BufferedReader(reader)) {

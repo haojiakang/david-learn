@@ -15,8 +15,8 @@ import java.util.List;
 public class PubSubDemo {
 
     public static void main(String[] args) {
-        String redisIp = "10.75.0.27";
-        int port = 6380;
+        String redisIp = "10.73.14.101";
+        int port = 7380;
         JedisPool jedisPool = new JedisPool(new JedisPoolConfig(), redisIp, port);
         log.info("redis pool is starting, ip:{}, port:{}", redisIp, port);
 

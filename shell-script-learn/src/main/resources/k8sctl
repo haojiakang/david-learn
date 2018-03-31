@@ -1,0 +1,16 @@
+#!/bin/bash
+
+namespace='jiakang'
+
+function usage() {
+    echo "Usage:"
+    echo "sh $0 docker_container_name"
+}
+
+if [ $# != 1 ]; then
+    usage
+    exit 1
+fi
+
+#echo "exec -it "$1" bash --namespace="${namespace}
+kubectl exec -it $1 bash --namespace=${namespace}
