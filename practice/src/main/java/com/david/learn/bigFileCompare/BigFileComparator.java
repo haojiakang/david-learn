@@ -1,11 +1,13 @@
-package com.david.learn.bigFileCompareMine;
+package com.david.learn.bigFileCompare;
 
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 大文件比较类
@@ -161,28 +163,61 @@ public class BigFileComparator {
                     log.info("writeToSubFile, subFileName:{}, bufferedLines.size:{}", subFileName, bufferLines.size());
                 }
 
-                //将排好序的小文件归并排序后写入大文件
+                int size = 10;
+                ExecutorService executorService = Executors.newFixedThreadPool(size);
+
+                //使用线程池进行小文件的循环归并
+                AtomicInteger sortLoopNum = new AtomicInteger(0);
+                int splitSize = 100;
+                while (subFiles.size() > splitSize) {
+                    List<String> sortLoopFiles = Collections.synchronizedList(new ArrayList<>());
+                    List<List<String>> partition = Lists.partition(subFiles, splitSize);
+
+                    CountDownLatch interCountDownLatch = new CountDownLatch(partition.size());
+
+                    for (List<String> curList : partition) {
+                        executorService.submit(() -> {
+                            String sortLoopFile = createExtFileName(file, "_sorted_loop" + sortLoopNum.getAndIncrement());
+                            sortLoopFiles.add(sortLoopFile);
+                            mergeSubFilesToSortedFile(curList, sortLoopFile);
+
+                            removeInternalFiles(curList);
+                            interCountDownLatch.countDown();
+                        });
+                    }
+                    interCountDownLatch.await();
+
+                    subFiles = sortLoopFiles;
+                }
+
+                //最后一次归并小文件写入最终的大文件
                 sortedFile = createExtFileName(file, "_sorted");
                 log.info("mergeSubFilesToSortedFile start, subFiles:{}, sortedFile:{}", subFiles, sortedFile);
                 mergeSubFilesToSortedFile(subFiles, sortedFile);
                 log.info("mergeSubFilesToSortedFile done, subFiles:{}, sortedFile:{}", subFiles, sortedFile);
 
-                //将中间小文件删除
-                for (String subFile : subFiles) {
-                    File file = new File(subFile);
-                    if (file.exists()) {
-                        boolean result = file.delete();
-                        log.info("subFile result, subFile:{}, result:{}", subFile, result);
-                    }
-                }
+                removeInternalFiles(subFiles);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             countDownLatch.countDown();
             return sortedFile;
+        }
+
+        private void removeInternalFiles(List<String> curList) {
+            //将中间小文件删除
+            for (String curFile : curList) {
+                File file = new File(curFile);
+                if (file.exists()) {
+                    boolean result = file.delete();
+                    log.info("curFile result, curFile:{}, result:{}", curFile, result);
+                }
+            }
         }
 
         /**

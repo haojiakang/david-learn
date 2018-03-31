@@ -1,4 +1,4 @@
-package com.david.learn.bigFileCompareMine;
+package com.david.learn.bigFileCompare;
 
 public class RandomUtil {
     //定义一个字符串（A-Z，a-z，0-9）即62位；

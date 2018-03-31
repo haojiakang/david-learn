@@ -1,4 +1,4 @@
-package com.david.learn.bigFileCompareMine;
+package com.david.learn.bigFileCompare;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -94,7 +94,7 @@ public class BigFileCreator {
     }
 
     public static void main(String[] args) {
-        int lineNumber = 100000;
+        int lineNumber = 10000000;
         String workPath = "bigFile";
 
         String destBigFile = "source_big0.txt";
