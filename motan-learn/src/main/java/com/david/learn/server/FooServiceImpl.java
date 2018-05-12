@@ -9,7 +9,7 @@ public class FooServiceImpl implements FooService {
 
     @Override
     public String hello(String name) {
-        System.out.println(name + " invoked rpc service");
+        System.out.println(name + " invoked proxy service");
         return "hello " + name;
     }
 }
