@@ -5,4 +5,6 @@
 # @File    : print.py
 # @Software: IntelliJ IDEA
 
+# 执行方式：
+# curl -s https://raw.githubusercontent.com/haojiakang/david-learn/master/python_learn/print.py | python
 print('hello world')
