@@ -160,7 +160,7 @@
         </plugins>
     </build>
 
-<!--     <repositories>
+    <repositories>
         <repository>
             <id>weibo.default</id>
             <name>Internal Release Repository</name>
@@ -207,5 +207,5 @@
             <name>Internal Snapshot Repository</name>
             <url>http://redmine.intra.weibo.com:8081/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
-    </distributionManagement> -->
+    </distributionManagement>
 </project>
